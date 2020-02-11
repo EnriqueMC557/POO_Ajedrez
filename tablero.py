@@ -6,6 +6,7 @@ Aguilar C. M. R., Mena C. E.
 import numpy as np 
 import matplotlib.pyplot as plt 
 
+<<<<<<< Updated upstream
 class Tablero:
     def Tablero(self,x0,y0):
         self.fig, self.ax = plt.subplots()
@@ -54,3 +55,7 @@ class Posiciones:
                                   [1,1], [8,1], [2,1], [7,1], [3,1], [3,6], [4,1], [5,1]])
         self.negras  = np.array([ [1,7], [2,7], [3,7], [4,7], [5,7], [6,7], [7,7], [8,7] 
                                   [1,8], [8,8], [2,8], [7,8], [3,8], [3,8], [4,8], [5,8]])
+=======
+import matplotlib.pyplot as plt
+
+>>>>>>> Stashed changes
