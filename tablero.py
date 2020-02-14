@@ -29,9 +29,6 @@ class Posiciones():
     def decodificar(self, pos_n):
         if type(pos_n[0]) == int:
             pos_n[0], pos_n[1] = pos_n[1], pos_n[0]
-            # temp = pos_n[0]
-            # pos_n[0] = pos_n[1]
-            # pos_n[1] = temp
         pos_n[0] = pos_n[0].upper()
         col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
                'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
@@ -40,10 +37,10 @@ class Posiciones():
 
 class Piezas:
     def __init__(self):
-        self.bk = {'peon' : 'ok','torre' : 'sk', 'alfil' : 'dk',
-                   'caballo' : '^k', 'rey' : '+k', 'reyna' : '*k'}
-        self.wh = {'peon' : 'ow','torre': 'sw', 'alfil' : 'dw',
-                   'caballo' : '^w', 'rey' : '+w', 'reyna' : '*w'}
+        self.bk = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
+                   'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
+        self.wh = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
+                   'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
 
 class Tablero:
     def __init__(self):
@@ -70,42 +67,54 @@ class Tablero:
         for i in self.it.wh.keys():
             if i == 'peon':
                 plt.plot(self.pos.wh[0:8,0]-1,self.pos.wh[0:8,1]-1,
-                         self.it.wh[i], mec = 'black', ms = 10)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'silver', ls = '', ms = 15)
             elif i == 'torre':
                 plt.plot(self.pos.wh[8:10,0]-1,self.pos.wh[8:10,1]-1,
-                         self.it.wh[i], mec = 'black', ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'silver', ls = '', ms = 15)
             elif i == 'caballo':
                 plt.plot(self.pos.wh[10:12,0]-1,self.pos.wh[10:12,1]-1,
-                         self.it.wh[i], mec = 'black', ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'silver', ls = '', ms = 15)
             elif i == 'alfil':
                 plt.plot(self.pos.wh[12:14,0]-1,self.pos.wh[12:14,1]-1,
-                         self.it.wh[i], mec = 'black', ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'silver', ls = '', ms = 15)
             elif i == 'rey':
                 plt.plot(self.pos.wh[14,0]-1,self.pos.wh[14,1]-1,
-                         self.it.wh[i], mec = 'black', ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'silver', ls = '', ms = 15)
             else:
                 plt.plot(self.pos.wh[15,0]-1,self.pos.wh[15,1]-1,
-                         self.it.wh[i], mec = 'black', ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'silver', ls = '', ms = 15)
         
         for i in self.it.bk.keys():
             if i == 'peon':
                 plt.plot(self.pos.bk[0:8,0]-1,self.pos.bk[0:8,1]-1,
-                         self.it.bk[i], ms = 10)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'black', ls = '', ms = 15)
             elif i == 'torre':
                 plt.plot(self.pos.bk[8:10,0]-1,self.pos.bk[8:10,1]-1,
-                         self.it.bk[i], ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'black', ls = '', ms = 15)
             elif i == 'caballo':
                 plt.plot(self.pos.bk[10:12,0]-1,self.pos.bk[10:12,1]-1,
-                         self.it.bk[i], ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'black', ls = '', ms = 15)
             elif i == 'alfil':
                 plt.plot(self.pos.bk[12:14,0]-1,self.pos.bk[12:14,1]-1,
-                         self.it.bk[i], ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'black', ls = '', ms = 15)
             elif i == 'rey':
                 plt.plot(self.pos.bk[14,0]-1,self.pos.bk[14,1]-1,
-                         self.it.bk[i], ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'black', ls = '', ms = 15)
             else:
                 plt.plot(self.pos.bk[15,0]-1,self.pos.bk[15,1]-1,
-                         self.it.bk[i], ms = 15)
+                         marker = self.it.wh[i], mfc = 'white',
+                         mec = 'black', ls = '', ms = 15)
         return self.ax
     
     def mostrar(self):
