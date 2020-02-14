@@ -11,23 +11,32 @@ class Posiciones():
         self.bk = np.array([ [1,2], [2,2], [3,2], [4,2],
                              [5,2], [6,2], [7,2], [8,2],
                              [1,1], [8,1], [2,1], [7,1],
-                             [3,1], [6,1], [5,1], [4,1] ])
+                             [3,1], [6,1], [4,1], [5,1] ])
         self.wh = np.array([ [1,7], [2,7], [3,7], [4,7],
                              [5,7], [6,7], [7,7], [8,7],
                              [1,8], [8,8], [2,8], [7,8],
-                             [3,8], [6,8], [5,8], [4,8] ])
+                             [3,8], [6,8], [4,8], [5,8] ])
+    
     def mover(self,team,pos_i,pos_f):
-        if team == 'wh':
-            pos = self.wh.tolist()
-        else:
-            pos = self.bk.tolist()
+        self.decodificar(pos_i)
+        self.decodificar(pos_f)
+        pos = eval('self.%s.tolist()'%team)
         for i in range(16):
             if pos[i] == pos_i:
-                if team == 'wh':
-                    self.wh[i,:] = pos_f
-                else:
-                    self.bk[i,:] = pos_f
+                exec('self.%s[i,:] = pos_f'%team)
                 break
+    
+    def decodificar(self, pos_n):
+        if type(pos_n[0]) == int:
+            pos_n[0], pos_n[1] = pos_n[1], pos_n[0]
+            # temp = pos_n[0]
+            # pos_n[0] = pos_n[1]
+            # pos_n[1] = temp
+        pos_n[0] = pos_n[0].upper()
+        col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
+               'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
+        pos_n[0] = col[pos_n[0]]
+        return pos_n
 
 class Piezas:
     def __init__(self):
@@ -103,7 +112,11 @@ class Tablero:
         self.tablero() 
         plt.show()
 
+tablero = Tablero()
 
+tablero.pos.mover('wh',['B',8],['c',6])
+tablero.mostrar()
 
-
+tablero.pos.mover('bk',[2,'b'],[4,'B'])
+tablero.mostrar()
 
