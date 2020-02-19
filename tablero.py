@@ -37,17 +37,10 @@ class Posiciones():
 
 class Piezas:
     def __init__(self):
-<<<<<<< Updated upstream
         self.bk = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
                    'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
         self.wh = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
                    'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
-=======
-        self.bk = {'peon' : 'ok','torre' : 'sk', 'alfil' : 'dk',
-                   'caballo' : '^k', 'rey' : '+k', 'reyna' : '*k'}
-        self.wh = {'peon' : 'oy','torre': 'sy', 'alfil' : 'dy',
-                   'caballo' : '^y', 'rey' : '+y', 'reyna' : '*y'}
->>>>>>> Stashed changes
 
 class Tablero:
     def __init__(self):
