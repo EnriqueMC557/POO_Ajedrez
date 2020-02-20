@@ -36,14 +36,19 @@ class Posiciones():
         return pos_n
 
 class Piezas:
-    def __init__(self):
-        self.bk = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
-                   'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
-        self.wh = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
-                   'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
+    def __init__(self, team, pieza, PosIn, marker):
+        # self.bk = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
+        #            'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
+        # self.wh = {'peon' : '$\u2659$','torre' : '$\u2656$', 'alfil' : '$\u2657$',
+        #            'caballo' : '$\u265E$', 'rey' : '$\u2654$', 'reyna' : '$\u2655$'}
+    
+        self.team  = team
+        self.pieza = pieza
+        self.PosIn = PosIn
+        self.marker = marker
 
 class Tablero:
-    def __init__(self):
+    def __init__(self, piezas):
         self.fondo = np.array([[0.,1.,0.,1.,0.,1.,0.,1.],
                                [1.,0.,1.,0.,1.,0.,1.,0.],
                                [0.,1.,0.,1.,0.,1.,0.,1.],
@@ -52,17 +57,18 @@ class Tablero:
                                [1.,0.,1.,0.,1.,0.,1.,0.],
                                [0.,1.,0.,1.,0.,1.,0.,1.],
                                [1.,0.,1.,0.,1.,0.,1.,0.]])
-        self.it = Piezas()
-        self.pos = Posiciones()
+        #self.it = Piezas()
+        self.it = piezas
+        self.pos = Posiciones(piezas)
         self.mostrar()
     
-    def tablero(self):
-        self.fig, self.ax = plt.subplots()
-        self.ax.set_xticks(np.arange(8))
-        self.ax.set_xticklabels(['A', 'B', 'C', 'D', 'E','F','G','H'])
-        self.ax.set_yticks(np.arange(8))
-        self.ax.set_yticklabels(['1', '2', '3', '4', '5','6','7','8'])
-        self.ax.imshow(self.fondo,cmap = 'binary',alpha=0.5)
+    def mostrar(self):
+        fig, ax = plt.subplots()
+        ax.set_xticks(np.arange(8))
+        ax.set_xticklabels(['A', 'B', 'C', 'D', 'E','F','G','H'])
+        ax.set_yticks(np.arange(8))
+        ax.set_yticklabels(['1', '2', '3', '4', '5','6','7','8'])
+        ax.imshow(self.fondo,cmap = 'binary',alpha=0.5)
         
         for i in self.it.wh.keys():
             if i == 'peon':
@@ -115,11 +121,35 @@ class Tablero:
                 plt.plot(self.pos.bk[15,0]-1,self.pos.bk[15,1]-1,
                          marker = self.it.wh[i], mfc = 'white',
                          mec = 'black', ls = '', ms = 15)
-        return self.ax
-    
-    def mostrar(self):
-        self.tablero() 
         plt.show()
+
+ListaPiezas = [ Piezas('wh', 'peon', [1,7], '$\u2659$'), Piezas('wh', 'peon', [2,7], '$\u2659$'),
+                Piezas('wh', 'peon', [3,7], '$\u2659$'), Piezas('wh', 'peon', [4,7], '$\u2659$'),
+                Piezas('wh', 'peon', [5,7], '$\u2659$'), Piezas('wh', 'peon', [6,7], '$\u2659$'),
+                Piezas('wh', 'peon', [7,7], '$\u2659$'), Piezas('wh', 'peon', [8,7], '$\u2659$'),
+                ]
+bk = np.array([ [1,2], [2,2], [3,2], [4,2],
+                [5,2], [6,2], [7,2], [8,2],
+                [1,1], [8,1], [2,1], [7,1],
+                [3,1], [6,1], [4,1], [5,1] ])
+wh = np.array([ [1,7], [2,7], [3,7], [4,7],
+                [5,7], [6,7], [7,7], [8,7],
+                [1,8], [8,8], [2,8], [7,8],
+                [3,8], [6,8], [4,8], [5,8] ])
+
+ListaPiezas = []
+
+for i in range(8): #Iniciar peones
+    ListaPiezas.append(Piezas('wh', 'peon', [i,7],'$\u2659$'))
+    ListaPiezas.append(Piezas('bk', 'peon', [i,2],'$\u2659$'))
+
+for i in [1,8]: #Torres
+    ListaPiezas.append(Piezas('wh', 'torre', [i,8], '$\u2656$'))
+    ListaPiezas.append(Piezas('bk', 'torre', [i,1], '$\u2656$'))
+
+for i in [2,7]: #Caballos
+    ListaPiezas.append(Piezas('wh', 'caballo', [i,8], '$\u265E$'))
+    ListaPiezas.append(Piezas('bk', 'caballo', [i,1], '$\u265E$'))
 
 tablero = Tablero()
 
