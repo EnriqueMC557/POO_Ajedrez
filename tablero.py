@@ -6,6 +6,15 @@ Aguilar C. M. R., Mena C. E.
 import numpy as np 
 import matplotlib.pyplot as plt 
 
+def decodificar(pos_n):
+    if type(pos_n[0]) == int:
+        pos_n[0], pos_n[1] = pos_n[1], pos_n[0]
+    pos_n[0] = pos_n[0].upper()
+    col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
+           'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
+    pos_n[0] = col[pos_n[0]]
+    return pos_n
+
 class Posiciones():
     def __init__(self, piezas):
         self.bk = []
@@ -26,14 +35,7 @@ class Posiciones():
                 exec('self.%s[i,:] = pos_f'%team)
                 break
     
-    def decodificar(self, pos_n):
-        if type(pos_n[0]) == int:
-            pos_n[0], pos_n[1] = pos_n[1], pos_n[0]
-        pos_n[0] = pos_n[0].upper()
-        col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
-               'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
-        pos_n[0] = col[pos_n[0]]
-        return pos_n
+
 
 class Piezas:
     def __init__(self, team, pieza, PosIn, marker):
@@ -41,15 +43,6 @@ class Piezas:
         self.pieza = pieza
         self.PosIn = PosIn
         self.marker = marker
-        
-    def mover(self,team,pos_i,pos_f):
-        self.decodificar(pos_i)
-        self.decodificar(pos_f)
-        pos = eval('self.%s.tolist()'%team)
-        for i in range(16):
-            if pos[i] == pos_i:
-                exec('self.%s[i,:] = pos_f'%team)
-                break
 
 class Tablero:
     def __init__(self, piezas):
@@ -61,11 +54,11 @@ class Tablero:
                                [1.,0.,1.,0.,1.,0.,1.,0.],
                                [0.,1.,0.,1.,0.,1.,0.,1.],
                                [1.,0.,1.,0.,1.,0.,1.,0.]])
-        self.it = piezas
-        self.pos = Posiciones(piezas)
-        self.mostrar()
     
-    def mostrar(self):
+        self.pos = Posiciones(piezas)
+        self.mostrar(piezas)
+    
+    def mostrar(self,it):
         fig, ax = plt.subplots()
         ax.set_xticks(np.arange(8))
         ax.set_xticklabels(['A', 'B', 'C', 'D', 'E','F','G','H'])
@@ -73,12 +66,29 @@ class Tablero:
         ax.set_yticklabels(['1', '2', '3', '4', '5','6','7','8'])
         ax.imshow(self.fondo,cmap = 'binary',alpha=0.5)
         
-        for i in self.it:
+        for i in it:
             if i.team == 'wh':
                 plt.plot(i.PosIn[0]-1, i.PosIn[1]-1, marker=i.marker, mfc = 'white', mec='silver', ls='', ms=15)
             else:
                 plt.plot(i.PosIn[0]-1, i.PosIn[1]-1, marker=i.marker, mfc = 'white', mec='black', ls='', ms=15)
         plt.show()
+        
+class Ajedrez:
+    def __init__(self, ListaPiezas):
+        self.piezas = ListaPiezas
+        self.tablero = Tablero(ListaPiezas)
+        
+    def mover_pieza(self, PosIn, PosFi):
+        PosIn = decodificar(PosIn)
+        PosFi = decodificar(PosFi)
+        for i in self.piezas:
+            if i.PosIn == PosIn:
+                i.PosIn = PosFi
+                break
+        self.tablero.mostrar(self.piezas)
+        
+        
+
 
 
 "parte del Menú"
