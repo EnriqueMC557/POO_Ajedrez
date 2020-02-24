@@ -4,7 +4,7 @@ I.P.O.O
 Aguilar C. M. R., Mena C. E.
 """
 import numpy as np 
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 
 def decodificar(pos_n):
     """Función diseñada para permitir que el usuario ingrese coordenadas en el
@@ -167,38 +167,38 @@ class Ajedrez:
 
 
 
-"""Parte del menú"""
-ListaPiezas = []
+# """Parte del menú"""
+# ListaPiezas = []
 
-for i in range(8): #Iniciar peones
-    ListaPiezas.append(Piezas('wh', 'peon', [i+1,7],'$\u2659$'))
-    ListaPiezas.append(Piezas('bk', 'peon', [i+1,2],'$\u2659$'))
+# for i in range(8): #Iniciar peones
+#     ListaPiezas.append(Piezas('wh', 'peon', [i+1,7],'$\u2659$'))
+#     ListaPiezas.append(Piezas('bk', 'peon', [i+1,2],'$\u2659$'))
 
-for i in [1,8]: #Iniciar torres
-    ListaPiezas.append(Piezas('wh', 'torre', [i,8], '$\u2656$'))
-    ListaPiezas.append(Piezas('bk', 'torre', [i,1], '$\u2656$'))
+# for i in [1,8]: #Iniciar torres
+#     ListaPiezas.append(Piezas('wh', 'torre', [i,8], '$\u2656$'))
+#     ListaPiezas.append(Piezas('bk', 'torre', [i,1], '$\u2656$'))
 
-for i in [2,7]: #Iniciar caballos
-    ListaPiezas.append(Piezas('wh', 'caballo', [i,8], '$\u265E$'))
-    ListaPiezas.append(Piezas('bk', 'caballo', [i,1], '$\u265E$'))
+# for i in [2,7]: #Iniciar caballos
+#     ListaPiezas.append(Piezas('wh', 'caballo', [i,8], '$\u265E$'))
+#     ListaPiezas.append(Piezas('bk', 'caballo', [i,1], '$\u265E$'))
     
-for i in [3,6]: #Iniciar alfil
-    ListaPiezas.append(Piezas('wh', 'alfil', [i,8], '$\u2657$'))
-    ListaPiezas.append(Piezas('bk', 'alfil', [i,1], '$\u2657$'))
+# for i in [3,6]: #Iniciar alfil
+#     ListaPiezas.append(Piezas('wh', 'alfil', [i,8], '$\u2657$'))
+#     ListaPiezas.append(Piezas('bk', 'alfil', [i,1], '$\u2657$'))
 
-#Iniciar reyes
-ListaPiezas.append(Piezas('wh', 'rey', [5,8], '$\u2654$'))
-ListaPiezas.append(Piezas('bk', 'rey', [5,1], '$\u2654$'))
+# #Iniciar reyes
+# ListaPiezas.append(Piezas('wh', 'rey', [5,8], '$\u2654$'))
+# ListaPiezas.append(Piezas('bk', 'rey', [5,1], '$\u2654$'))
 
-#Iniciar reynas
-ListaPiezas.append(Piezas('wh', 'reina', [4,8], '$\u2655$'))
-ListaPiezas.append(Piezas('bk', 'reina', [4,1], '$\u2655$'))
+# #Iniciar reynas
+# ListaPiezas.append(Piezas('wh', 'reina', [4,8], '$\u2655$'))
+# ListaPiezas.append(Piezas('bk', 'reina', [4,1], '$\u2655$'))
 
-#Iniciar tablero
-juego = Ajedrez(ListaPiezas)
+# #Iniciar tablero
+# juego = Ajedrez(ListaPiezas)
 
-#Movimientos para prueba
-juego.mover_pieza(['b',8],['C',6])
-juego.mover_pieza(['F',2],['f',4])
-juego.mover_pieza([7,'A'],[6,'a'])
-juego.mover_pieza([1,'g'],[3,'F'])
+# #Movimientos para prueba
+# juego.mover_pieza(['b',8],['C',6])
+# juego.mover_pieza(['F',2],['f',4])
+# juego.mover_pieza([7,'A'],[6,'a'])
+# juego.mover_pieza([1,'g'],[3,'F'])
