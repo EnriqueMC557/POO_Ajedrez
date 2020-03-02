@@ -6,21 +6,7 @@ Aguilar C. M. R., Mena C. E.
 import numpy as np 
 import matplotlib.pyplot as plt
 
-def decodificar(pos_n):
-    """Función diseñada para permitir que el usuario ingrese coordenadas en el
-    orden que él desee y sin importar si ingresa letra en mayuscula o no.
-    
-    Parameters
-    ----------
-    pos_n = list of int
-        Posición a decodificar"""
-    if type(pos_n[0]) == int:
-        pos_n[0], pos_n[1] = pos_n[1], pos_n[0]
-    pos_n[0] = pos_n[0].upper()
-    col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
-           'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
-    pos_n[0] = col[pos_n[0]]
-    return pos_n
+
 
 
 class Posiciones():
@@ -156,14 +142,38 @@ class Ajedrez:
         self.tablero = Tablero(ListaPiezas)
         
     def mover_pieza(self, PosIn, PosFi):
-        PosIn = decodificar(PosIn)
-        PosFi = decodificar(PosFi)
+        """Método responsable de cambiar la posición de la pieza seleccionada.
+        
+        Parameters
+        ----------
+        PosIn: list
+            Posición actual de la pieza a mover.
+        PosFi: list
+            Posición destino de la pieza a mover."""
+        PosIn = self.decodificar(PosIn)
+        PosFi = self.decodificar(PosFi)
         for i in self.piezas:
             if i.posicion == PosIn:
                 i.posicion = PosFi
                 break
         self.tablero.mostrar(self.piezas)
         self.tablero.posiciones = Posiciones(self.piezas)
+    
+    def decodificar(self, pos_n):
+        """Método diseñado para permitir que el usuario ingrese coordenadas en el
+        orden que él desee y sin importar si ingresa letra en mayuscula o no.
+        
+        Parameters
+        ----------
+        pos_n = list
+            Posición a decodificar"""
+        if type(pos_n[0]) == int:
+            pos_n[0], pos_n[1] = pos_n[1], pos_n[0]
+        pos_n[0] = pos_n[0].upper()
+        col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
+               'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
+        pos_n[0] = col[pos_n[0]]
+        return pos_n
 
 
 

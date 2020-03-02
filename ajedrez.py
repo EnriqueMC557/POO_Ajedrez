@@ -5,7 +5,7 @@ Aguilar C. M. R., Mena C. E.
 """
 
 import os
-from tablero import decodificar, Posiciones, Piezas, Tablero, Ajedrez
+from tablero import Posiciones, Piezas, Tablero, Ajedrez
 
 class Menu:
     """Clase que permite jugar ajedrez desde la consola."""
@@ -52,39 +52,45 @@ class Menu:
             print("----------")
             print('Es el turno de %s (blancas).'%self.jugadorW)
             print('Escriba salir si desea terminar.')
-            CW_i = input('Ingrese las coordenadas de la pieza a mover, Ej., A,8: ')
-            if CW_i == 'salir':
-                os.sys.exit()
-            CW_i =[CW_i[0], CW_i[2]]
-            if CW_i[1].isnumeric():
-                CW_i[1] = int(CW_i[1])
-            else:
-                CW_i[0] = int(CW_i[0])
-            CW_o = input('Ingrese las coordenadas destino, Ej., A,8: ')
-            CW_o =[CW_o[0], CW_o[2]]
-            if CW_o[1].isnumeric():
-                CW_o[1] = int(CW_o[1])
-            else:
-                CW_o[0] = int(CW_o[0])
-            self.ajedrez.mover_pieza(CW_i,CW_o)
+            C_i = self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A8: ')
+            C_o = self.SolicitarCoordenada('Ingrese la coordenada destino, Ej. A8: ')
+            self.ajedrez.mover_pieza(C_i,C_o)
             print("----------")
             print('Es el turno de %s (negras).'%self.jugadorB)
             print('Escriba salir si desea terminar.')
-            CW_i = input('Ingrese las coordenadas de la pieza a mover, Ej., A,8: ')
-            if CW_i == 'salir':
-                os.sys.exit()
-            CW_i =[CW_i[0], CW_i[2]]
-            if CW_i[1].isnumeric():
-                CW_i[1] = int(CW_i[1])
-            else:
-                CW_i[0] = int(CW_i[0])
-            CW_o = input('Ingrese las coordenadas destino, Ej., A,8: ')
-            CW_o =[CW_o[0], CW_o[2]]
-            if CW_o[1].isnumeric():
-                CW_o[1] = int(CW_o[1])
-            else:
-                CW_o[0] = int(CW_o[0])
-            self.ajedrez.mover_pieza(CW_i,CW_o)
+            C_i = self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ')
+            C_o = self.SolicitarCoordenada('Ingrese la coordenada destino, Ej. A1: ')
+            self.ajedrez.mover_pieza(C_i,C_o)
+    
+    def SolicitarCoordenada(self, mensaje):
+        """ Método encargado de solicitar una coordenada y validar su longitud.
+        
+        Parameters
+        ----------
+        mensaje : str
+            Mensaje a mostrar para solicitar coordenada.
+
+        Returns
+        ----------
+        C : list
+            Coordenada validada."""
+        
+        while(True):
+            try:
+                C = input(mensaje)
+                if C == 'salir':
+                    os.sys.exit()
+                elif len(C) != 2:
+                    raise Exception('Longitud inválida')
+                C = [C[0], C[1]]
+                if C[1].isnumeric():
+                    C[1] = int(C[1])
+                else:
+                    C[0] = int(C[0])
+                return C
+                break
+            except:
+                print('Longitud de coordenada fuera de rango. Intente otra vez')
 
 if __name__ == '__main__':
     Menu().run()
