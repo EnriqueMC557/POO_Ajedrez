@@ -4,7 +4,7 @@ I.P.O.O
 Aguilar C. M. R., Mena C. E.
 """
 
-import os
+import sys
 from tablero import Posiciones, Piezas, Tablero, Ajedrez
 
 class Menu:
@@ -61,27 +61,18 @@ class Menu:
             C_i = self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ')
             C_o = self.SolicitarCoordenada('Ingrese la coordenada destino, Ej. A1: ')
             self.ajedrez.mover_pieza(C_i,C_o)
-    
+            
     def SolicitarCoordenada(self, mensaje):
-        """ Método encargado de solicitar una coordenada y validar su longitud.
-        
-        Parameters
-        ----------
-        mensaje : str
-            Mensaje a mostrar para solicitar coordenada.
-
-        Returns
-        ----------
-        C : list
-            Coordenada validada."""
-        
         while(True):
             try:
                 C = input(mensaje)
                 if C == 'salir':
-                    os.sys.exit()
+                    print('salir')
+                    sys.exit()
                 elif len(C) != 2:
-                    raise Exception('Longitud inválida')
+                    print('Va a ocurrir un error')
+                    raise ValueError('Longitud inválida')
+                
                 C = [C[0], C[1]]
                 if C[1].isnumeric():
                     C[1] = int(C[1])
@@ -89,7 +80,7 @@ class Menu:
                     C[0] = int(C[0])
                 return C
                 break
-            except:
+            except ValueError:
                 print('Longitud de coordenada fuera de rango. Intente otra vez')
 
 if __name__ == '__main__':
