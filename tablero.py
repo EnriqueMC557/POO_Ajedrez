@@ -6,9 +6,6 @@ Aguilar C. M. R., Mena C. E.
 import numpy as np 
 import matplotlib.pyplot as plt
 
-
-
-
 class Posiciones():
     """Clase que permite conocer todas las posiciones que ocupan las piezas
     separadas por equipos.
@@ -52,7 +49,7 @@ class Piezas:
     marker : str
         Marcador con el cual se visualizará la pieza en el tablero."""
     
-    def __init__(self, team, pieza, posicion, marker):
+    def __init__(self, team, posicion):
         """Inicializador de la clase Piezas.
         
         Parameters
@@ -66,10 +63,39 @@ class Piezas:
         marker : str
             Marcador con el cual se visualizará la pieza en el tablero."""
         self.team  = team
-        self.pieza = pieza
+        #self.pieza = pieza
         self.posicion = posicion
-        self.marker = marker
+        #self.marker = marker
 
+class Peon(Piezas):
+    def __init__(self, team, posicion):
+        super().__init__(team, posicion)
+        self.marker = '$\u2659$'
+
+class Torre(Piezas):
+    def __init__(self, team, posicion):
+        super().__init__(team, posicion)
+        self.marker = '$\u2656$'
+
+class Caballo(Piezas):
+    def __init__(self, team, posicion):
+        super().__init__(team, posicion)
+        self.marker = '$\u265E$'
+
+class Alfil(Piezas):
+    def __init__(self, team, posicion):
+        super().__init__(team, posicion)
+        self.marker = '$\u2657$'
+
+class Rey(Piezas):
+    def __init__(self, team, posicion):
+        super().__init__(team, posicion)
+        self.marker = '$\u2654$'
+
+class Reyna(Piezas):
+    def __init__(self, team, posicion):
+        super().__init__(team, posicion)
+        self.marker = '$\u2655$'
 
 class Tablero:
     """Clase que permite generar y desplegar un tablero donde jugar ajedrez.

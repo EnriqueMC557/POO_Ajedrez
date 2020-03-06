@@ -5,7 +5,7 @@ Aguilar C. M. R., Mena C. E.
 """
 
 import sys
-from tablero import Posiciones, Piezas, Tablero, Ajedrez
+from tablero import *
 
 class LenError(Exception):
     pass
@@ -18,28 +18,28 @@ class Menu:
         ListaPiezas = []
 
         for i in range(8): #Iniciar peones
-            ListaPiezas.append(Piezas('wh', 'peon', [i+1,7],'$\u2659$'))
-            ListaPiezas.append(Piezas('bk', 'peon', [i+1,2],'$\u2659$'))
+            ListaPiezas.append(Peon('wh', [i+1,7]))
+            ListaPiezas.append(Peon('bk', [i+1,2]))
         
         for i in [1,8]: #Iniciar torres
-            ListaPiezas.append(Piezas('wh', 'torre', [i,8], '$\u2656$'))
-            ListaPiezas.append(Piezas('bk', 'torre', [i,1], '$\u2656$'))
+            ListaPiezas.append(Torre('wh', [i,8]))
+            ListaPiezas.append(Torre('bk', [i,1]))
         
         for i in [2,7]: #Iniciar caballos
-            ListaPiezas.append(Piezas('wh', 'caballo', [i,8], '$\u265E$'))
-            ListaPiezas.append(Piezas('bk', 'caballo', [i,1], '$\u265E$'))
+            ListaPiezas.append(Caballo('wh', [i,8]))
+            ListaPiezas.append(Caballo('bk', [i,1]))
             
         for i in [3,6]: #Iniciar alfil
-            ListaPiezas.append(Piezas('wh', 'alfil', [i,8], '$\u2657$'))
-            ListaPiezas.append(Piezas('bk', 'alfil', [i,1], '$\u2657$'))
+            ListaPiezas.append(Alfil('wh', [i,8]))
+            ListaPiezas.append(Alfil('bk', [i,1]))
         
         #Iniciar reyes
-        ListaPiezas.append(Piezas('wh', 'rey', [5,8], '$\u2654$'))
-        ListaPiezas.append(Piezas('bk', 'rey', [5,1], '$\u2654$'))
+        ListaPiezas.append(Rey('wh', [5,8]))
+        ListaPiezas.append(Rey('bk', [5,1]))
         
         #Iniciar reynas
-        ListaPiezas.append(Piezas('wh', 'reina', [4,8], '$\u2655$'))
-        ListaPiezas.append(Piezas('bk', 'reina', [4,1], '$\u2655$'))
+        ListaPiezas.append(Reyna('wh', [4,8]))
+        ListaPiezas.append(Reyna('bk', [4,1]))
         
         #Incialización de jugadores
         print("""Bienvenido a nuestro ajedrez. Vamos a jugar :D \n""")
