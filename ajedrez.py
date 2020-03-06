@@ -7,6 +7,9 @@ Aguilar C. M. R., Mena C. E.
 import sys
 from tablero import Posiciones, Piezas, Tablero, Ajedrez
 
+class LenError(Exception):
+    pass
+
 class Menu:
     """Clase que permite jugar ajedrez desde la consola."""
     def __init__(self):
@@ -70,18 +73,29 @@ class Menu:
                     print('salir')
                     sys.exit()
                 elif len(C) != 2:
-                    print('Va a ocurrir un error')
-                    raise ValueError('Longitud inválida')
+                    raise LenError('Longitud inválida')
                 
                 C = [C[0], C[1]]
+                col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
+                       'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
                 if C[1].isnumeric():
                     C[1] = int(C[1])
+                    if C[1] < 1 or C[1] > 8:
+                        raise ValueError('Número invalido')
+                    col[C[0].upper()] #KeyError
                 else:
                     C[0] = int(C[0])
+                    if C[0] < 1 or C[0] > 8:
+                        raise ValueError('Número invalido')
+                    col[C[1].upper()] #KeyError
                 return C
                 break
+            except LenError:
+                print('Longitud de coordenada invalida.')
+            except KeyError:
+                print('Letra fuera de rango.')
             except ValueError:
-                print('Longitud de coordenada fuera de rango. Intente otra vez')
+                print('Número fuera de rango o Ingresaste dos letras.')
 
 if __name__ == '__main__':
     Menu().run()
