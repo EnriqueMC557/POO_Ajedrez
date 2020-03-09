@@ -221,8 +221,10 @@ class Ajedrez:
                 #Validación propio equipo
                 if team == 'wh':
                     posiciones = self.tablero.posiciones.wh
+                    posiciones_c = self.tablero.posiciones.bk
                 else:
                     posiciones = self.tablero.posiciones.bk
+                    posiciones_c = self.tablero.posiciones.wh
                 quitar = []
                 for mov in movimientos:
                     for pos in posiciones:
@@ -241,6 +243,13 @@ class Ajedrez:
                 
                 idx = int(input('Seleccione posición destino: '))
                 PosFi = movimientos[idx]
+                
+                if PosFi in posiciones_c:
+                    for pr in self.piezas:
+                        if pr.posicion == PosFi:
+                            self.piezas.remove(pr)
+                            break
+                
                 i.posicion = PosFi
                 
                 break
