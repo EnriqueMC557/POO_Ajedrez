@@ -6,6 +6,9 @@ Aguilar C. M. R., Mena C. E.
 import numpy as np 
 import matplotlib.pyplot as plt
 
+class TeamError(Exception):
+    pass
+
 class Posiciones():
     """Clase que permite conocer todas las posiciones que ocupan las piezas
     separadas por equipos.
@@ -66,12 +69,45 @@ class Piezas:
         #self.pieza = pieza
         self.posicion = posicion
         #self.marker = marker
+    
+    def DentroTablero(self, movimientos):
+        quitar = []
+        for x,y in movimientos:
+            if (x < 1 or x > 8) or (y < 1 or y > 8):
+                quitar.append([x,y])
+        for q in quitar:
+            movimientos.remove(q)
+        return movimientos
 
 class Peon(Piezas):
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2659$'
-
+        self.primer = True
+    
+    def mover(self):
+        #Generar movimientos
+        x,y = self.posicion[0], self.posicion[1]
+        movimientos = []
+        if self.team == 'wh':
+            movimientos.append([x,y-1])
+            movimientos.append([x+1,y-1])
+            movimientos.append([x-1,y-1])
+            if self.primer:
+                movimientos.append([x,y-2])
+                self.primer = False
+        else:
+            movimientos.append([x,y+1])
+            movimientos.append([x+1,y+1])
+            movimientos.append([x-1,y+1])
+            if self.primer:
+                movimientos.append([x,y+2])
+                self.primer = False
+        #Validar dentro de tablero
+        movimientos = self.DentroTablero(movimientos)
+        return movimientos
+        
+        
 class Torre(Piezas):
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
@@ -167,7 +203,7 @@ class Ajedrez:
         self.piezas = ListaPiezas
         self.tablero = Tablero(ListaPiezas)
         
-    def mover_pieza(self, PosIn, PosFi):
+    def mover_pieza(self, PosIn, team):
         """Método responsable de cambiar la posición de la pieza seleccionada.
         
         Parameters
@@ -176,30 +212,41 @@ class Ajedrez:
             Posición actual de la pieza a mover.
         PosFi: list
             Posición destino de la pieza a mover."""
-        PosIn = self.decodificar(PosIn)
-        PosFi = self.decodificar(PosFi)
         for i in self.piezas:
             if i.posicion == PosIn:
+                if i.team != team:
+                    raise TeamError('Equipo contrario')
+                
+                movimientos = i.mover()
+                #Validación propio equipo
+                if team == 'wh':
+                    posiciones = self.tablero.posiciones.wh
+                else:
+                    posiciones = self.tablero.posiciones.bk
+                quitar = []
+                for mov in movimientos:
+                    for pos in posiciones:
+                        if mov == pos:
+                            quitar.append(mov)
+                            break
+                for q in quitar:
+                    movimientos.remove(q)
+                
+                col = {1 : 'A', 2 : 'B', 3 : 'C', 4: 'D',
+                       5 : 'E', 6 : 'F', 7 : 'G', 8 : 'H'}
+                j = 0
+                for k in movimientos:
+                    print(str(j) + '.' + col[k[0]] + str(k[1]))
+                    j += 1
+                
+                idx = int(input('Seleccione posición destino: '))
+                PosFi = movimientos[idx]
                 i.posicion = PosFi
+                
                 break
         self.tablero.mostrar(self.piezas)
         self.tablero.posiciones = Posiciones(self.piezas)
     
-    def decodificar(self, pos_n):
-        """Método diseñado para permitir que el usuario ingrese coordenadas en el
-        orden que él desee y sin importar si ingresa letra en mayuscula o no.
-        
-        Parameters
-        ----------
-        pos_n = list
-            Posición a decodificar"""
-        if type(pos_n[0]) == int:
-            pos_n[0], pos_n[1] = pos_n[1], pos_n[0]
-        pos_n[0] = pos_n[0].upper()
-        col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
-               'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
-        pos_n[0] = col[pos_n[0]]
-        return pos_n
 
 
 

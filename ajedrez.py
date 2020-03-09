@@ -55,17 +55,13 @@ class Menu:
             print("----------")
             print('Es el turno de %s (blancas).'%self.jugadorW)
             print('Escriba salir si desea terminar.')
-            C_i = self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A8: ')
-            C_o = self.SolicitarCoordenada('Ingrese la coordenada destino, Ej. A8: ')
-            self.ajedrez.mover_pieza(C_i,C_o)
+            self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A8: ', 'wh')
             print("----------")
             print('Es el turno de %s (negras).'%self.jugadorB)
             print('Escriba salir si desea terminar.')
-            C_i = self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ')
-            C_o = self.SolicitarCoordenada('Ingrese la coordenada destino, Ej. A1: ')
-            self.ajedrez.mover_pieza(C_i,C_o)
-            
-    def SolicitarCoordenada(self, mensaje):
+            self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ', 'bk')
+    
+    def SolicitarCoordenada(self, mensaje, team):
         while(True):
             try:
                 C = input(mensaje)
@@ -82,20 +78,26 @@ class Menu:
                     C[1] = int(C[1])
                     if C[1] < 1 or C[1] > 8:
                         raise ValueError('Número invalido')
-                    col[C[0].upper()] #KeyError
+                    C[0] = col[C[0].upper()] #KeyError
                 else:
                     C[0] = int(C[0])
                     if C[0] < 1 or C[0] > 8:
                         raise ValueError('Número invalido')
-                    col[C[1].upper()] #KeyError
+                    C[1] = col[C[1].upper()] #KeyError
+                    C[0],C[1] = C[1],C[0]
+                
+                self.ajedrez.mover_pieza(C,team)
+                
                 return C
                 break
             except LenError:
                 print('Longitud de coordenada invalida.')
             except KeyError:
-                print('Letra fuera de rango.')
+                print('Letra fuera de rango o ingresaste dos números.')
             except ValueError:
-                print('Número fuera de rango o Ingresaste dos letras.')
+                print('Número fuera de rango o ingresaste dos letras.')
+            except TeamError:
+                print('Pieza seleccionada de equipo contrario')
 
 if __name__ == '__main__':
     Menu().run()
