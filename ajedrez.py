@@ -85,7 +85,6 @@ class Menu:
                         raise ValueError('Número invalido')
                     C[1] = col[C[1].upper()] #KeyError
                     C[0],C[1] = C[1],C[0]
-                
                 self.ajedrez.mover_pieza(C,team)
                 
                 return C
@@ -97,7 +96,9 @@ class Menu:
             except ValueError:
                 print('Número fuera de rango o ingresaste dos letras.')
             except TeamError:
-                print('Pieza seleccionada de equipo contrario')
+                print('Pieza seleccionada de equipo contrario.')
+            except SinMovimientos:
+                print('Pieza sin movimientos posibles.')
 
 if __name__ == '__main__':
     Menu().run()

@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 class TeamError(Exception):
     pass
 
+class SinMovimientos(Exception):
+    pass
+
 class Posiciones():
     """Clase que permite conocer todas las posiciones que ocupan las piezas
     separadas por equipos.
@@ -85,21 +88,27 @@ class Peon(Piezas):
         self.marker = '$\u2659$'
         self.primer = True
     
-    def mover(self):
+    def mover(self, posiciones):
         #Generar movimientos
         x,y = self.posicion[0], self.posicion[1]
         movimientos = []
         if self.team == 'wh':
+            pos_c = posiciones.bk
             movimientos.append([x,y-1])
-            movimientos.append([x+1,y-1])
-            movimientos.append([x-1,y-1])
+            if [x+1,y-1] in pos_c:
+                movimientos.append([x+1,y-1])
+            if [x-1,y-1] in pos_c:
+                movimientos.append([x-1,y-1])
             if self.primer:
                 movimientos.append([x,y-2])
                 self.primer = False
         else:
+            pos_c = posiciones.wh
             movimientos.append([x,y+1])
-            movimientos.append([x+1,y+1])
-            movimientos.append([x-1,y+1])
+            if [x+1,y+1] in pos_c:
+                movimientos.append([x+1,y+1])
+            if [x-1,y+1] in pos_c:
+                movimientos.append([x-1,y+1])
             if self.primer:
                 movimientos.append([x,y+2])
                 self.primer = False
@@ -112,26 +121,46 @@ class Torre(Piezas):
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2656$'
+    
+    def mover(self, posiciones):
+        movimientos = []
+        return movimientos
 
 class Caballo(Piezas):
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u265E$'
+    
+    def mover(self, posiciones):
+        movimientos = []
+        return movimientos
 
 class Alfil(Piezas):
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2657$'
+    
+    def mover(self, posiciones):
+        movimientos = []
+        return movimientos
 
 class Rey(Piezas):
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2654$'
+    
+    def mover(self, posiciones):
+        movimientos = []
+        return movimientos
 
 class Reyna(Piezas):
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2655$'
+    
+    def mover(self, posiciones):
+        movimientos = []
+        return movimientos
 
 class Tablero:
     """Clase que permite generar y desplegar un tablero donde jugar ajedrez.
@@ -217,7 +246,8 @@ class Ajedrez:
                 if i.team != team:
                     raise TeamError('Equipo contrario')
                 
-                movimientos = i.mover()
+                movimientos = i.mover(self.tablero.posiciones)
+                
                 #Validación propio equipo
                 if team == 'wh':
                     posiciones = self.tablero.posiciones.wh
@@ -233,6 +263,9 @@ class Ajedrez:
                             break
                 for q in quitar:
                     movimientos.remove(q)
+                
+                if not movimientos:
+                    raise SinMovimientos('Pieza sin movimientos')
                 
                 col = {1 : 'A', 2 : 'B', 3 : 'C', 4: 'D',
                        5 : 'E', 6 : 'F', 7 : 'G', 8 : 'H'}
@@ -256,41 +289,3 @@ class Ajedrez:
         self.tablero.mostrar(self.piezas)
         self.tablero.posiciones = Posiciones(self.piezas)
     
-
-
-
-# """Parte del menú"""
-# ListaPiezas = []
-
-# for i in range(8): #Iniciar peones
-#     ListaPiezas.append(Piezas('wh', 'peon', [i+1,7],'$\u2659$'))
-#     ListaPiezas.append(Piezas('bk', 'peon', [i+1,2],'$\u2659$'))
-
-# for i in [1,8]: #Iniciar torres
-#     ListaPiezas.append(Piezas('wh', 'torre', [i,8], '$\u2656$'))
-#     ListaPiezas.append(Piezas('bk', 'torre', [i,1], '$\u2656$'))
-
-# for i in [2,7]: #Iniciar caballos
-#     ListaPiezas.append(Piezas('wh', 'caballo', [i,8], '$\u265E$'))
-#     ListaPiezas.append(Piezas('bk', 'caballo', [i,1], '$\u265E$'))
-    
-# for i in [3,6]: #Iniciar alfil
-#     ListaPiezas.append(Piezas('wh', 'alfil', [i,8], '$\u2657$'))
-#     ListaPiezas.append(Piezas('bk', 'alfil', [i,1], '$\u2657$'))
-
-# #Iniciar reyes
-# ListaPiezas.append(Piezas('wh', 'rey', [5,8], '$\u2654$'))
-# ListaPiezas.append(Piezas('bk', 'rey', [5,1], '$\u2654$'))
-
-# #Iniciar reynas
-# ListaPiezas.append(Piezas('wh', 'reina', [4,8], '$\u2655$'))
-# ListaPiezas.append(Piezas('bk', 'reina', [4,1], '$\u2655$'))
-
-# #Iniciar tablero
-# juego = Ajedrez(ListaPiezas)
-
-# #Movimientos para prueba
-# juego.mover_pieza(['b',8],['C',6])
-# juego.mover_pieza(['F',2],['f',4])
-# juego.mover_pieza([7,'A'],[6,'a'])
-# juego.mover_pieza([1,'g'],[3,'F'])
