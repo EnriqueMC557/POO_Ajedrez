@@ -42,18 +42,16 @@ class Posiciones():
 
 
 class Piezas:
-    """Clase que permite almacenar las caracteristicas de una pieza de ajedrez.
+    """Clase que permite almacenar las caracteristicas de una pieza de ajedrez y 
+    validar que los movimientos válidos se encuentren dentro del tablero.
     
     Attributes
     ----------
     team : str
         Equipo al que pertence la pieza ('wh' o 'bk').
-    pieza : str
-        Tipo de pieza de ajedrez ('peon','torre','caballo','alfil','rey','reyna').
     posicion : list of int
-        Posición actual de la pieza.
-    marker : str
-        Marcador con el cual se visualizará la pieza en el tablero."""
+        Posición actual de la pieza."""
+        
     
     def __init__(self, team, posicion):
         """Inicializador de la clase Piezas.
@@ -62,12 +60,9 @@ class Piezas:
         ----------
         team : str
             Equipo al que pertence la pieza ('wh' o 'bk').
-        pieza : str
-            Tipo de pieza de ajedrez ('peon','torre','caballo','alfil','rey','reyna').
         posicion : list of int
-            Posición inicial de la pieza.
-        marker : str
-            Marcador con el cual se visualizará la pieza en el tablero."""
+            Posición inicial de la pieza."""
+
         self.team  = team
         #self.pieza = pieza
         self.posicion = posicion
@@ -227,10 +222,38 @@ class Ajedrez:
     tablero : Tablero
         Tablero en el que se desplegaran las piezas de ajedrez."""
     
-    def __init__(self, ListaPiezas):
+    def __init__(self):
         """Inicializador de clase Ajedrez."""
-        self.piezas = ListaPiezas
-        self.tablero = Tablero(ListaPiezas)
+        self.piezas = self.generar_piezas()
+        self.tablero = Tablero(self.piezas)
+    
+    def generar_piezas(self):
+        ListaPiezas = []
+
+        for i in range(8): #Iniciar peones
+            ListaPiezas.append(Peon('wh', [i+1,7]))
+            ListaPiezas.append(Peon('bk', [i+1,2]))
+        
+        for i in [1,8]: #Iniciar torres
+            ListaPiezas.append(Torre('wh', [i,8]))
+            ListaPiezas.append(Torre('bk', [i,1]))
+        
+        for i in [2,7]: #Iniciar caballos
+            ListaPiezas.append(Caballo('wh', [i,8]))
+            ListaPiezas.append(Caballo('bk', [i,1]))
+            
+        for i in [3,6]: #Iniciar alfil
+            ListaPiezas.append(Alfil('wh', [i,8]))
+            ListaPiezas.append(Alfil('bk', [i,1]))
+        
+        #Iniciar reyes
+        ListaPiezas.append(Rey('wh', [5,8]))
+        ListaPiezas.append(Rey('bk', [5,1]))
+        
+        #Iniciar reynas
+        ListaPiezas.append(Reyna('wh', [4,8]))
+        ListaPiezas.append(Reyna('bk', [4,1]))
+        return ListaPiezas
         
     def mover_pieza(self, PosIn, team):
         """Método responsable de cambiar la posición de la pieza seleccionada.

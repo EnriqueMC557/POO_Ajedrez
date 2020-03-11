@@ -13,41 +13,13 @@ class LenError(Exception):
 class Menu:
     """Clase que permite jugar ajedrez desde la consola."""
     def __init__(self):
-        """Inicializador de clase Menu"""
-        #Inicialización de piezas
-        ListaPiezas = []
-
-        for i in range(8): #Iniciar peones
-            ListaPiezas.append(Peon('wh', [i+1,7]))
-            ListaPiezas.append(Peon('bk', [i+1,2]))
-        
-        for i in [1,8]: #Iniciar torres
-            ListaPiezas.append(Torre('wh', [i,8]))
-            ListaPiezas.append(Torre('bk', [i,1]))
-        
-        for i in [2,7]: #Iniciar caballos
-            ListaPiezas.append(Caballo('wh', [i,8]))
-            ListaPiezas.append(Caballo('bk', [i,1]))
-            
-        for i in [3,6]: #Iniciar alfil
-            ListaPiezas.append(Alfil('wh', [i,8]))
-            ListaPiezas.append(Alfil('bk', [i,1]))
-        
-        #Iniciar reyes
-        ListaPiezas.append(Rey('wh', [5,8]))
-        ListaPiezas.append(Rey('bk', [5,1]))
-        
-        #Iniciar reynas
-        ListaPiezas.append(Reyna('wh', [4,8]))
-        ListaPiezas.append(Reyna('bk', [4,1]))
-        
         #Incialización de jugadores
         print("""Bienvenido a nuestro ajedrez. Vamos a jugar :D \n""")
         self.jugadorW = input('Ingrese nombre de jugador 1 (blancas): ')
         self.jugadorB = input('Ingrese nombre de jugador 2 (negras): ')
         
         #Inicio de juego
-        self.ajedrez = Ajedrez(ListaPiezas)
+        self.ajedrez = Ajedrez()
     
     def run(self):
         """Solicita movimientos de piezas"""
