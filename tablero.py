@@ -339,18 +339,21 @@ class Ajedrez:
                 for k in movimientos:
                     print(str(j) + '.' + col[k[0]] + str(k[1]))
                     j += 1
-                
-                idx = int(input('Seleccione posición destino: '))
-                PosFi = movimientos[idx]
-                
-                if PosFi in posiciones_c:
-                    for pr in self.piezas:
-                        if pr.posicion == PosFi:
-                            self.piezas.remove(pr)
-                            break
-                
-                i.posicion = PosFi
-                
+                while(True):
+                    try:
+                        idx = int(input('Seleccione posición destino: '))
+                        PosFi = movimientos[idx]
+                        
+                        if PosFi in posiciones_c:
+                            for pr in self.piezas:
+                                if pr.posicion == PosFi:
+                                    self.piezas.remove(pr)
+                                    break
+                        
+                        i.posicion = PosFi
+                        break
+                    except IndexError:
+                        print('Selección inválida')
                 break
         self.tablero.mostrar(self.piezas)
         self.tablero.posiciones = Posiciones(self.piezas)
