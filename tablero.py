@@ -243,7 +243,87 @@ class Reyna(Piezas):
         self.marker = '$\u2655$'
     
     def mover(self, posiciones):
+        x,y = self.posicion[0], self.posicion[1]
         movimientos = []
+        b1, b2, b3, b4 = True, True, True, True
+        diag1, diag2, diag3, diag4 = True, True, True, True
+        i = 1
+        
+        while(b1 or b2 or b3 or b4):
+            if b1: #Movimiento arriba
+                mov = [x,y+i]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b1 = False
+                elif mov[1] > 8: #Fuera de tablero
+                    b1 = False
+                else:
+                    movimientos.append(mov)
+            if b2: #Movimiento abajo
+                mov = [x,y-i]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b2 = False
+                elif mov[1] < 1: #Fuera de tablero
+                    b2 = False
+                else:
+                    movimientos.append(mov)
+            if b3: #Movimiento derecha
+                mov = [x+i,y]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b3 = False
+                elif mov[0] > 8: #Fuera de tablero
+                    b3 = False
+                else:
+                    movimientos.append(mov)
+            if b4: #Movimientos izquierda
+                mov = [x-i,y]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b4 = False
+                elif mov[0] < 1: #Fuera de tablero
+                    b4 = False
+                else:
+                    movimientos.append(mov)
+            if diag1:
+                if (x+i > 8) or (y-i < 1): #Diagonal superior derecha
+                    diag1 = False
+                else:
+                    if ([x+i,y-i] in posiciones.bk) or ([x+i,y-i] in posiciones.wh):
+                        movimientos.append([x+i,y-i])
+                        diag1 = False
+                    else:
+                        movimientos.append([x+i,y-i])
+            if diag2:
+                if (x+i > 8) or (y+i > 8): #Diagonal inferior derecha
+                    diag2 = False
+                else:
+                    if ([x+i, y+i] in posiciones.bk) or ([x+i, y+i] in posiciones.wh):
+                        movimientos.append([x+i, y+i])
+                        diag2 = False
+                    else:
+                        movimientos.append([x+i, y+i]) 
+            if diag3:
+                if (x-i < 1) or (y+i > 8): #Diagonal inferior izquierda
+                    diag3 = False
+                else:
+                    if ([x-i, y+i] in posiciones.bk) or ([x-i, y+i] in posiciones.wh):
+                        movimientos.append([x-i, y+i])
+                        diag3 = False
+                    else:
+                        movimientos.append([x-i, y+i])    
+            if diag4:
+                if (x-i < 1) or (y-i > 8): #Diagonal superior izquierda
+                    diag4 = False
+                else:
+                    if ([x-i, y-i] in posiciones.bk) or ([x-i, y-i] in posiciones.wh):
+                        movimientos.append([x-i, y-i])
+                        diag4 = False
+                    else:
+                        movimientos.append([x-i, y-i])   
+            i += 1
+        
         return movimientos
 
 class Tablero:
