@@ -118,7 +118,50 @@ class Torre(Piezas):
         self.marker = '$\u2656$'
     
     def mover(self, posiciones):
+        x,y = self.posicion[0], self.posicion[1]
         movimientos = []
+        b1, b2, b3, b4 = True, True, True, True
+        i = 1
+        
+        while(b1 or b2 or b3 or b4):
+            if b1: #Movimiento arriba
+                mov = [x,y+i]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b1 = False
+                elif mov[1] > 8: #Fuera de tablero
+                    b1 = False
+                else:
+                    movimientos.append(mov)
+            if b2: #Movimiento abajo
+                mov = [x,y-i]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b2 = False
+                elif mov[1] < 1: #Fuera de tablero
+                    b2 = False
+                else:
+                    movimientos.append(mov)
+            if b3: #Movimiento derecha
+                mov = [x+i,y]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b3 = False
+                elif mov[0] > 8: #Fuera de tablero
+                    b3 = False
+                else:
+                    movimientos.append(mov)
+            if b4: #Movimientos izquierda
+                mov = [x-i,y]
+                if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
+                    movimientos.append(mov)
+                    b4 = False
+                elif mov[0] < 1: #Fuera de tablero
+                    b4 = False
+                else:
+                    movimientos.append(mov)
+            i += 1
+
         return movimientos
 
 class Caballo(Piezas):
