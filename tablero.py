@@ -249,7 +249,7 @@ class Reyna(Piezas):
         diag1, diag2, diag3, diag4 = True, True, True, True
         i = 1
         
-        while(b1 or b2 or b3 or b4):
+        while(b1 or b2 or b3 or b4 or diag1 or diag2 or diag3 or diag4):
             if b1: #Movimiento arriba
                 mov = [x,y+i]
                 if mov in posiciones.bk or mov in posiciones.wh: #Pieza cerca
