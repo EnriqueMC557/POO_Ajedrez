@@ -170,7 +170,9 @@ class Caballo(Piezas):
         self.marker = '$\u265E$'
     
     def mover(self, posiciones):
-        movimientos = []
+        x,y = self.posicion[0], self.posicion[1]
+        movimientos = [[x-2,y+1],[x+2,y+1],[x-1,y+2],[x+1,y+2],[x-2,y-1],[x-1,y-2],[x+1,y-2],[x+2,y-1]]
+        movimientos = self.DentroTablero(movimientos)
         return movimientos
 
 class Alfil(Piezas):
@@ -179,7 +181,49 @@ class Alfil(Piezas):
         self.marker = '$\u2657$'
     
     def mover(self, posiciones):
+        x,y = self.posicion[0], self.posicion[1]
         movimientos = []
+        i=1
+        diag1, diag2, diag3, diag4 = True, True, True, True
+        while(diag1 or diag2 or diag3 or diag4):
+            if diag1:
+                if (x+i > 8) or (y-i < 1): #Diagonal superior derecha
+                    diag1 = False
+                else:
+                    if ([x+i,y-i] in posiciones.bk) or ([x+i,y-i] in posiciones.wh):
+                        movimientos.append([x+i,y-i])
+                        diag1 = False
+                    else:
+                        movimientos.append([x+i,y-i])
+            if diag2:
+                if (x+i > 8) or (y+i > 8): #Diagonal inferior derecha
+                    diag2 = False
+                else:
+                    if ([x+i, y+i] in posiciones.bk) or ([x+i, y+i] in posiciones.wh):
+                        movimientos.append([x+i, y+i])
+                        diag2 = False
+                    else:
+                        movimientos.append([x+i, y+i]) 
+            if diag3:
+                if (x-i < 1) or (y+i > 8): #Diagonal inferior izquierda
+                    diag3 = False
+                else:
+                    if ([x-i, y+i] in posiciones.bk) or ([x-i, y+i] in posiciones.wh):
+                        movimientos.append([x-i, y+i])
+                        diag3 = False
+                    else:
+                        movimientos.append([x-i, y+i])    
+            if diag4:
+                if (x-i < 1) or (y-i > 8): #Diagonal superior izquierda
+                    diag4 = False
+                else:
+                    if ([x-i, y-i] in posiciones.bk) or ([x-i, y-i] in posiciones.wh):
+                        movimientos.append([x-i, y-i])
+                        diag4 = False
+                    else:
+                        movimientos.append([x-i, y-i])   
+            i+=1
+        movimientos = self.DentroTablero(movimientos)                
         return movimientos
 
 class Rey(Piezas):
@@ -188,7 +232,9 @@ class Rey(Piezas):
         self.marker = '$\u2654$'
     
     def mover(self, posiciones):
-        movimientos = []
+        x,y = self.posicion[0], self.posicion[1]
+        movimientos = [[x-1,y+1],[x,y+1],[x+1,y+1],[x-1,y],[x+1,y],[x-1,y-1],[x,y-1],[x+1,y-1]]
+        movimientos = self.DentroTablero(movimientos)
         return movimientos
 
 class Reyna(Piezas):
