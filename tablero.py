@@ -12,6 +12,9 @@ class TeamError(Exception):
 class SinMovimientos(Exception):
     pass
 
+class SeleccionVacia(Exception):
+    pass
+
 class Posiciones():
     """Clase que permite conocer todas las posiciones que ocupan las piezas
     separadas por equipos.
@@ -214,7 +217,7 @@ class Alfil(Piezas):
                     else:
                         movimientos.append([x-i, y+i])    
             if diag4:
-                if (x-i < 1) or (y-i > 8): #Diagonal superior izquierda
+                if (x-i < 1) or (y-i < 1): #Diagonal superior izquierda
                     diag4 = False
                 else:
                     if ([x-i, y-i] in posiciones.bk) or ([x-i, y-i] in posiciones.wh):
@@ -314,7 +317,7 @@ class Reyna(Piezas):
                     else:
                         movimientos.append([x-i, y+i])    
             if diag4:
-                if (x-i < 1) or (y-i > 8): #Diagonal superior izquierda
+                if (x-i < 1) or (y-i < 1): #Diagonal superior izquierda
                     diag4 = False
                 else:
                     if ([x-i, y-i] in posiciones.bk) or ([x-i, y-i] in posiciones.wh):
@@ -433,8 +436,10 @@ class Ajedrez:
             Posición actual de la pieza a mover.
         PosFi: list
             Posición destino de la pieza a mover."""
+        NullSelection = True
         for i in self.piezas:
             if i.posicion == PosIn:
+                NullSelection = False
                 if i.team != team:
                     raise TeamError('Equipo contrario')
                 
@@ -481,6 +486,8 @@ class Ajedrez:
                     except IndexError:
                         print('Selección inválida')
                 break
+        if NullSelection:
+            raise SeleccionVacia('Posición sin pieza')
         self.tablero.mostrar(self.piezas)
         self.tablero.posiciones = Posiciones(self.piezas)
     

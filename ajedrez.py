@@ -71,6 +71,8 @@ class Menu:
                 print('Pieza seleccionada de equipo contrario.')
             except SinMovimientos:
                 print('Pieza sin movimientos posibles.')
+            except SeleccionVacia:
+                print('Selecciono posición vacía')
 
 if __name__ == '__main__':
     Menu().run()
