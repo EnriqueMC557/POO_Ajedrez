@@ -30,6 +30,8 @@ class Piezas:
         self.posicion = posicion
     
     def DentroTablero(self, movimientos):
+        """Método que permite validar que los momvimientos generados se
+        encuentren dentro del tablero."""
         quitar = []
         for x,y in movimientos:
             if (x < 1 or x > 8) or (y < 1 or y > 8):
@@ -39,12 +41,14 @@ class Piezas:
         return movimientos
 
 class Peon(Piezas):
+    """Clase para crear piezas tipo Peón."""
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2659$'
         self.primer = True
     
     def mover(self, posiciones):
+        """Método generador de movimientos de Peón."""
         #Generar movimientos
         x,y = self.posicion[0], self.posicion[1]
         movimientos = []
@@ -74,11 +78,13 @@ class Peon(Piezas):
         
         
 class Torre(Piezas):
+    """Clase que permite crear piezas tipo Torre."""
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2656$'
     
     def mover(self, posiciones):
+        """Método generador de movimientos de Torre."""
         x,y = self.posicion[0], self.posicion[1]
         movimientos = []
         b1, b2, b3, b4 = True, True, True, True
@@ -126,11 +132,13 @@ class Torre(Piezas):
         return movimientos
 
 class Caballo(Piezas):
+    """Clase que permite crear piezas tipo Caballo."""
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u265E$'
     
     def mover(self, posiciones):
+        """Método generador de movimientos de Caballo."""
         x,y = self.posicion[0], self.posicion[1]
         movimientos = [[x-2,y+1],[x+2,y+1],[x-1,y+2],[x+1,y+2],[x-2,y-1],
                        [x-1,y-2],[x+1,y-2],[x+2,y-1]]
@@ -138,11 +146,13 @@ class Caballo(Piezas):
         return movimientos
 
 class Alfil(Piezas):
+    """Clase que permite crear piezas tipo Alfil."""
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2657$'
     
     def mover(self, posiciones):
+        """Método generador de movimientos de Alfil."""
         x,y = self.posicion[0], self.posicion[1]
         movimientos = []
         i=1
@@ -193,11 +203,13 @@ class Alfil(Piezas):
         return movimientos
 
 class Rey(Piezas):
+    """Clase que permite crear piezas tipo Rey."""
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2654$'
     
     def mover(self, posiciones):
+        """Método generador de movimientos de Rey."""
         x,y = self.posicion[0], self.posicion[1]
         movimientos = [[x-1,y+1],[x,y+1],[x+1,y+1],[x-1,y],[x+1,y],[x-1,y-1],
                        [x,y-1],[x+1,y-1]]
@@ -205,11 +217,13 @@ class Rey(Piezas):
         return movimientos
 
 class Reyna(Piezas):
+    """Clase que permite crear piezas tipo Reyna."""
     def __init__(self, team, posicion):
         super().__init__(team, posicion)
         self.marker = '$\u2655$'
     
     def mover(self, posiciones):
+        """Método generador de movimientos de Reyna."""
         x,y = self.posicion[0], self.posicion[1]
         movimientos = []
         b1, b2, b3, b4 = True, True, True, True

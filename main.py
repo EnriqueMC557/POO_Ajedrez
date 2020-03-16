@@ -20,7 +20,7 @@ class Menu:
         self.ajedrez = Ajedrez()
     
     def run(self):
-        """Solicita movimientos de piezas"""
+        """Solicita movimientos de piezas."""
         while(True):
             print("----------")
             print('Es el turno de %s (blancas).'%self.jugadorW)
@@ -32,6 +32,8 @@ class Menu:
             self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ', 'bk')
     
     def SolicitarCoordenada(self, mensaje, team):
+        """Método que permite realizar la solicitud de una coordenada desde
+        consola y maneja los posibles errores."""
         while(True):
             try:
                 C = input(mensaje)
@@ -59,8 +61,6 @@ class Menu:
                 
                 return C
                 break
-            except LenError:
-                print('Longitud de coordenada invalida.')
             except KeyError:
                 print('Letra fuera de rango o ingresaste dos números.')
             except ValueError:
@@ -71,6 +71,8 @@ class Menu:
                 print('Pieza sin movimientos posibles.')
             except SeleccionVacia:
                 print('Seleccionó posición vacía')
+            except LenError:
+                print('Longitud de coordenada invalida.')
 
 if __name__ == '__main__':
     Menu().run()

@@ -4,7 +4,7 @@ I.P.O.O
 Aguilar C. M. R. & Mena C. E.
 """
 
-from piezas import Piezas, Peon, Torre, Caballo, Alfil, Rey, Reyna
+from piezas import Peon, Torre, Caballo, Alfil, Rey, Reyna
 from tablero import Tablero, Posiciones
 from errores import TeamError, SinMovimientos, SeleccionVacia
 
