@@ -31,7 +31,7 @@ class Menu:
             print('Escriba salir si desea terminar.')
             self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ', 'bk')
     
-    def SolicitarCoordenada(self, mensaje, team):
+    def SolicitarCoordenada(self, mensaje, team=''):
         """Método que permite realizar la solicitud de una coordenada desde
         consola y maneja los posibles errores."""
         while(True):
@@ -42,7 +42,6 @@ class Menu:
                     sys.exit()
                 elif len(C) != 2:
                     raise LenError('Longitud inválida')
-                
                 C = [C[0], C[1]]
                 col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
                        'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
@@ -58,21 +57,20 @@ class Menu:
                     C[1] = col[C[1].upper()] #KeyError
                     C[0],C[1] = C[1],C[0]
                 self.ajedrez.mover_pieza(C,team)
-                
-                return C
-                break
             except KeyError:
-                print('Letra fuera de rango o ingresaste dos números.')
+                print('\nLetra fuera de rango o ingresaste dos números.')
             except ValueError:
-                print('Número fuera de rango o ingresaste dos letras.')
+                print('\nNúmero fuera de rango o ingresaste dos letras.')
             except TeamError:
-                print('Pieza seleccionada de equipo contrario.')
+                print('\nPieza seleccionada de equipo contrario.')
             except SinMovimientos:
-                print('Pieza sin movimientos posibles.')
+                print('\nPieza sin movimientos posibles.')
             except SeleccionVacia:
-                print('Seleccionó posición vacía')
+                print('\nSeleccionó posición vacía')
             except LenError:
-                print('Longitud de coordenada invalida.')
+                print('\nLongitud de coordenada invalida.')
+            else: #Si no ocurrieron errores
+                break
 
 if __name__ == '__main__':
     Menu().run()

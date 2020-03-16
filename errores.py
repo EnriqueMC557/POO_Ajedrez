@@ -20,3 +20,8 @@ class LenError(Exception):
     """Clase generadora de error para ingreso de coordenada con longitud no
     válida."""
     pass
+
+class SeleccionError(Exception):
+    """Clase generadora de error para selección de coordenada destino inválida.
+    """
+    pass

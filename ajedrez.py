@@ -4,9 +4,11 @@ I.P.O.O
 Aguilar C. M. R. & Mena C. E.
 """
 
+import sys
 from piezas import Peon, Torre, Caballo, Alfil, Rey, Reyna
 from tablero import Tablero, Posiciones
-from errores import TeamError, SinMovimientos, SeleccionVacia
+from errores import LenError, TeamError, SinMovimientos
+from errores import SeleccionVacia, SeleccionError
 
 class Ajedrez:
     """Clase que permite jugar Ajedrez utilizando las clases Piezas y Tablero.
@@ -90,27 +92,51 @@ class Ajedrez:
                 
                 col = {1 : 'A', 2 : 'B', 3 : 'C', 4: 'D',
                        5 : 'E', 6 : 'F', 7 : 'G', 8 : 'H'}
-                j = 0
-                for k in movimientos:
-                    print(str(j) + '.' + col[k[0]] + str(k[1]))
-                    j += 1
                 while(True):
                     try:
-                        idx = int(input('Seleccione posición destino: '))
-                        PosFi = movimientos[idx]
-                        
-                        if PosFi in posiciones_c:
-                            for pr in self.piezas:
-                                if pr.posicion == PosFi:
-                                    self.piezas.remove(pr)
-                                    break
-                        
+                        print('\nPosibles movimientos de pieza seleccionada:')
+                        for k in movimientos:
+                            print('\t' + col[k[0]] + str(k[1]))
+                        PosFi = self.SolCoor('Ingrese coordenada destino: ')
+                        if PosFi not in movimientos:
+                            raise SeleccionError('')
+                    except LenError:
+                        print('\nLongitud de coordenada invalida.')
+                    except SeleccionError:
+                        print('\nSelección inválida.')
+                    except KeyError:
+                        print('\nLetra fuera de rango o ingresaste dos números.')
+                    except ValueError:
+                        print('\nNúmero fuera de rango o ingresaste dos letras.')
+                    else:
                         i.posicion = PosFi
                         break
-                    except IndexError:
-                        print('Selección inválida')
-                break
         if NullSelection:
             raise SeleccionVacia('Posición sin pieza')
         self.tablero.mostrar(self.piezas)
         self.tablero.posiciones = Posiciones(self.piezas)
+    
+    def SolCoor(self, mensaje):
+        """Método que permite realizar la solicitud de una coordenada desde
+        consola y maneja los posibles errores."""
+        C = input(mensaje)
+        if C == 'salir':
+            print('salir')
+            sys.exit()
+        elif len(C) != 2:
+            raise LenError('Longitud inválida')
+        C = [C[0], C[1]]
+        col = {'A' : 1, 'B' : 2, 'C' : 3, 'D' : 4,
+               'E' : 5, 'F' : 6, 'G' : 7, 'H' : 8}
+        if C[1].isnumeric():
+            C[1] = int(C[1])
+            if C[1] < 1 or C[1] > 8:
+                raise ValueError('Número invalido')
+            C[0] = col[C[0].upper()] #KeyError
+        else:
+            C[0] = int(C[0])
+            if C[0] < 1 or C[0] > 8:
+                raise ValueError('Número invalido')
+            C[1] = col[C[1].upper()] #KeyError
+            C[0],C[1] = C[1],C[0]
+        return C
