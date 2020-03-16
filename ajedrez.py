@@ -6,9 +6,7 @@ Aguilar C. M. R., Mena C. E.
 
 import sys
 from tablero import *
-
-class LenError(Exception):
-    pass
+from errores import LenError
 
 class Menu:
     """Clase que permite jugar ajedrez desde la consola."""
@@ -72,7 +70,7 @@ class Menu:
             except SinMovimientos:
                 print('Pieza sin movimientos posibles.')
             except SeleccionVacia:
-                print('Selecciono posición vacía')
+                print('Seleccionó posición vacía')
 
 if __name__ == '__main__':
     Menu().run()
