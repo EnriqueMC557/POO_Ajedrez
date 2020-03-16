@@ -1,6 +1,12 @@
+"""
+Piezas para ajedrez
+I.P.O.O.
+Aguilar C. M. R. & Mena C. E.
+"""
+
 class Piezas:
-    """Clase que permite almacenar las caracteristicas de una pieza de ajedrez y 
-    validar que los movimientos válidos se encuentren dentro del tablero.
+    """Clase que permite almacenar las caracteristicas de una pieza de ajedrez
+    y validar que los movimientos válidos se encuentren dentro del tablero.
     
     Attributes
     ----------
@@ -21,9 +27,7 @@ class Piezas:
             Posición inicial de la pieza."""
 
         self.team  = team
-        #self.pieza = pieza
         self.posicion = posicion
-        #self.marker = marker
     
     def DentroTablero(self, movimientos):
         quitar = []
@@ -128,7 +132,8 @@ class Caballo(Piezas):
     
     def mover(self, posiciones):
         x,y = self.posicion[0], self.posicion[1]
-        movimientos = [[x-2,y+1],[x+2,y+1],[x-1,y+2],[x+1,y+2],[x-2,y-1],[x-1,y-2],[x+1,y-2],[x+2,y-1]]
+        movimientos = [[x-2,y+1],[x+2,y+1],[x-1,y+2],[x+1,y+2],[x-2,y-1],
+                       [x-1,y-2],[x+1,y-2],[x+2,y-1]]
         movimientos = self.DentroTablero(movimientos)
         return movimientos
 
@@ -147,7 +152,8 @@ class Alfil(Piezas):
                 if (x+i > 8) or (y-i < 1): #Diagonal superior derecha
                     diag1 = False
                 else:
-                    if ([x+i,y-i] in posiciones.bk) or ([x+i,y-i] in posiciones.wh):
+                    if (([x+i,y-i] in posiciones.bk) or
+                        ([x+i,y-i] in posiciones.wh)):
                         movimientos.append([x+i,y-i])
                         diag1 = False
                     else:
@@ -156,31 +162,34 @@ class Alfil(Piezas):
                 if (x+i > 8) or (y+i > 8): #Diagonal inferior derecha
                     diag2 = False
                 else:
-                    if ([x+i, y+i] in posiciones.bk) or ([x+i, y+i] in posiciones.wh):
+                    if (([x+i, y+i] in posiciones.bk) or
+                        ([x+i, y+i] in posiciones.wh)):
                         movimientos.append([x+i, y+i])
                         diag2 = False
                     else:
-                        movimientos.append([x+i, y+i]) 
+                        movimientos.append([x+i, y+i])
             if diag3:
                 if (x-i < 1) or (y+i > 8): #Diagonal inferior izquierda
                     diag3 = False
                 else:
-                    if ([x-i, y+i] in posiciones.bk) or ([x-i, y+i] in posiciones.wh):
+                    if (([x-i, y+i] in posiciones.bk) or
+                        ([x-i, y+i] in posiciones.wh)):
                         movimientos.append([x-i, y+i])
                         diag3 = False
                     else:
-                        movimientos.append([x-i, y+i])    
+                        movimientos.append([x-i, y+i])
             if diag4:
-                if (x-i < 1) or (y-i > 8): #Diagonal superior izquierda
+                if (x-i < 1) or (y-i < 1): #Diagonal superior izquierda
                     diag4 = False
                 else:
-                    if ([x-i, y-i] in posiciones.bk) or ([x-i, y-i] in posiciones.wh):
+                    if (([x-i, y-i] in posiciones.bk) or
+                        ([x-i, y-i] in posiciones.wh)):
                         movimientos.append([x-i, y-i])
                         diag4 = False
                     else:
-                        movimientos.append([x-i, y-i])   
+                        movimientos.append([x-i, y-i])
             i+=1
-        movimientos = self.DentroTablero(movimientos)                
+        movimientos = self.DentroTablero(movimientos)
         return movimientos
 
 class Rey(Piezas):
@@ -190,7 +199,8 @@ class Rey(Piezas):
     
     def mover(self, posiciones):
         x,y = self.posicion[0], self.posicion[1]
-        movimientos = [[x-1,y+1],[x,y+1],[x+1,y+1],[x-1,y],[x+1,y],[x-1,y-1],[x,y-1],[x+1,y-1]]
+        movimientos = [[x-1,y+1],[x,y+1],[x+1,y+1],[x-1,y],[x+1,y],[x-1,y-1],
+                       [x,y-1],[x+1,y-1]]
         movimientos = self.DentroTablero(movimientos)
         return movimientos
 
@@ -247,7 +257,8 @@ class Reyna(Piezas):
                 if (x+i > 8) or (y-i < 1): #Diagonal superior derecha
                     diag1 = False
                 else:
-                    if ([x+i,y-i] in posiciones.bk) or ([x+i,y-i] in posiciones.wh):
+                    if (([x+i,y-i] in posiciones.bk) or
+                        ([x+i,y-i] in posiciones.wh)):
                         movimientos.append([x+i,y-i])
                         diag1 = False
                     else:
@@ -256,29 +267,32 @@ class Reyna(Piezas):
                 if (x+i > 8) or (y+i > 8): #Diagonal inferior derecha
                     diag2 = False
                 else:
-                    if ([x+i, y+i] in posiciones.bk) or ([x+i, y+i] in posiciones.wh):
+                    if (([x+i, y+i] in posiciones.bk) or
+                        ([x+i, y+i] in posiciones.wh)):
                         movimientos.append([x+i, y+i])
                         diag2 = False
                     else:
-                        movimientos.append([x+i, y+i]) 
+                        movimientos.append([x+i, y+i])
             if diag3:
                 if (x-i < 1) or (y+i > 8): #Diagonal inferior izquierda
                     diag3 = False
                 else:
-                    if ([x-i, y+i] in posiciones.bk) or ([x-i, y+i] in posiciones.wh):
+                    if (([x-i, y+i] in posiciones.bk) or
+                        ([x-i, y+i] in posiciones.wh)):
                         movimientos.append([x-i, y+i])
                         diag3 = False
                     else:
-                        movimientos.append([x-i, y+i])    
+                        movimientos.append([x-i, y+i])
             if diag4:
-                if (x-i < 1) or (y-i > 8): #Diagonal superior izquierda
+                if (x-i < 1) or (y-i < 1): #Diagonal superior izquierda
                     diag4 = False
                 else:
-                    if ([x-i, y-i] in posiciones.bk) or ([x-i, y-i] in posiciones.wh):
+                    if (([x-i, y-i] in posiciones.bk) or
+                        ([x-i, y-i] in posiciones.wh)):
                         movimientos.append([x-i, y-i])
                         diag4 = False
                     else:
-                        movimientos.append([x-i, y-i])   
+                        movimientos.append([x-i, y-i])
             i += 1
         
         return movimientos

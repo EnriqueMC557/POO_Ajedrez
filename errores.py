@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 """
-Created on Mon Mar 16 12:49:36 2020
-
-@author: usuario
+Errores para ajedrez
+I.P.O.O.
+Aguilar C. M. R. & Mena C. E.
 """
 
 class TeamError(Exception):
