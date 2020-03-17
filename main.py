@@ -38,7 +38,6 @@ class Menu:
             try:
                 C = input(mensaje)
                 if C == 'salir':
-                    print('salir')
                     sys.exit()
                 elif len(C) != 2:
                     raise LenError('Longitud inválida')

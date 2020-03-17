@@ -74,10 +74,8 @@ class Ajedrez:
                 #Validación propio equipo
                 if team == 'wh':
                     posiciones = self.tablero.posiciones.wh
-                    posiciones_c = self.tablero.posiciones.bk
                 else:
                     posiciones = self.tablero.posiciones.bk
-                    posiciones_c = self.tablero.posiciones.wh
                 quitar = []
                 for mov in movimientos:
                     for pos in posiciones:
@@ -121,7 +119,6 @@ class Ajedrez:
         consola y maneja los posibles errores."""
         C = input(mensaje)
         if C == 'salir':
-            print('salir')
             sys.exit()
         elif len(C) != 2:
             raise LenError('Longitud inválida')
