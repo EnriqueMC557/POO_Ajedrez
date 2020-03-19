@@ -27,10 +27,9 @@ class Menu:
         print('Escriba salir si desea terminar.')
         self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ', 'bk')
     
-    def SolicitarCoordenada(self, C, team=''):
+    def SolicitarCoordenada(self, C, team='', error=None):
         """Método que permite realizar la solicitud de una coordenada desde
         consola y maneja los posibles errores."""
-        #while(True):
         try:
             if len(C) != 2:
                 raise LenError('Longitud inválida')
@@ -50,19 +49,24 @@ class Menu:
                 C[0],C[1] = C[1],C[0]
             self.ajedrez.mover_pieza(C,team,self.figure)
         except KeyError:
-            print('\nLetra fuera de rango o ingresaste dos números.')
+            error.setInformativeText('Letra fuera de rango o ingresaste dos números.')
+            error.exec_()
         except ValueError:
-            print('\nNúmero fuera de rango o ingresaste dos letras.')
+            error.setInformativeText('Número fuera de rango o ingresaste dos letras.')
+            error.exec_()
         except TeamError:
-            print('\nPieza seleccionada de equipo contrario.')
+            error.setInformativeText('Pieza seleccionada de equipo contrario.')
+            error.exec_()
         except SinMovimientos:
-            print('\nPieza sin movimientos posibles.')
+            error.setInformativeText('Pieza sin movimientos posibles.')
+            error.exec_()
         except SeleccionVacia:
-            print('\nSeleccionó posición vacía')
+            error.setInformativeText('Seleccionó posición vacía.')
+            error.exec_()
         except LenError:
-            print('\nLongitud de coordenada invalida.')
+            error.setInformativeText('Longitud de coordenada invalida.')
+            error.exec_()
         else: #Si no ocurrieron errores
-            #break
             if team == 'wh':
                 team = 'bk'
             else:
