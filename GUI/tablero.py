@@ -73,6 +73,7 @@ class Tablero:
         piezas : list of Piezas
             Piezas a desplegar en tablero"""
         #Despliegue de fondo y etiquetas de tablero
+        figure.ax.clear()
         figure.ax.set_xticks(np.arange(8))
         figure.ax.set_xticklabels(['A', 'B', 'C', 'D', 'E','F','G','H'])
         figure.ax.set_yticks(np.arange(8))
@@ -83,8 +84,8 @@ class Tablero:
         for i in piezas:
             if i.team == 'wh': #Blancas
                 figure.ax.plot(i.posicion[0]-1, i.posicion[1]-1, marker=i.marker,
-                         mfc = 'white', mec='silver', ls='', ms=15)
+                         mfc = 'white', mec='silver', ls='', ms=10)
             else: #Negras
                 figure.ax.plot(i.posicion[0]-1, i.posicion[1]-1, marker=i.marker,
-                         mfc = 'white', mec='black', ls='', ms=15)
+                         mfc = 'white', mec='black', ls='', ms=10)
         figure.draw()

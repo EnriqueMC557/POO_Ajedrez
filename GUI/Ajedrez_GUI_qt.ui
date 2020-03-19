@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>676</width>
-    <height>648</height>
+    <width>700</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,44 +16,142 @@
   <widget class="QPyQt5Canvas" name="canvas" native="true">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>10</y>
-     <width>500</width>
-     <height>500</height>
+     <x>160</x>
+     <y>110</y>
+     <width>400</width>
+     <height>400</height>
     </rect>
    </property>
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
   </widget>
-  <widget class="QPushButton" name="Iniciar_Button">
+  <widget class="QLabel" name="TextoMulti">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>540</y>
-     <width>75</width>
-     <height>23</height>
+     <x>100</x>
+     <y>20</y>
+     <width>501</width>
+     <height>61</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
-    <string>Iniciar juego</string>
+    <string>Bienvenido a nuestro ajedrez. Presionar &quot;Iniciar juego&quot; para empezar</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::PlainText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="Salir_Button">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>540</y>
-     <width>75</width>
-     <height>23</height>
+     <x>160</x>
+     <y>570</y>
+     <width>411</width>
+     <height>72</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Salir</string>
-   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="Iniciar_Button">
+      <property name="text">
+       <string>Iniciar juego</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>50</width>
+        <height>17</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Pieza a mover</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="PosIn_LineEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="MoverPieza_Button">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Mover pieza</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>50</width>
+        <height>17</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Salir_Button">
+      <property name="text">
+       <string>Salir</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <customwidgets>
