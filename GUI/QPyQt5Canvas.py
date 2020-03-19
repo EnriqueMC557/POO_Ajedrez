@@ -12,6 +12,7 @@ Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+import numpy as np
 
 
 class PyQt5Canvas(FigureCanvasQTAgg):
@@ -26,6 +27,19 @@ class PyQt5Canvas(FigureCanvasQTAgg):
         self.fig = Figure(facecolor='0.94')
         # Agrega unos ejes
         self.ax = self.fig.add_axes([0.1, 0.1, 0.8, 0.8])
+        self.ax.set_xticks(np.arange(8))
+        self.ax.set_xticklabels(['A', 'B', 'C', 'D', 'E','F','G','H'])
+        self.ax.set_yticks(np.arange(8))
+        self.ax.set_yticklabels(['1', '2', '3', '4', '5','6','7','8'])
+        self.fondo = np.array([[0.,1.,0.,1.,0.,1.,0.,1.],
+                               [1.,0.,1.,0.,1.,0.,1.,0.],
+                               [0.,1.,0.,1.,0.,1.,0.,1.],
+                               [1.,0.,1.,0.,1.,0.,1.,0.],
+                               [0.,1.,0.,1.,0.,1.,0.,1.],
+                               [1.,0.,1.,0.,1.,0.,1.,0.],
+                               [0.,1.,0.,1.,0.,1.,0.,1.],
+                               [1.,0.,1.,0.,1.,0.,1.,0.]])
+        self.ax.imshow(self.fondo,cmap = 'binary',alpha=0.5)
         # invoca al constructor de la clase
         FigureCanvasQTAgg.__init__(self, self.fig)
 

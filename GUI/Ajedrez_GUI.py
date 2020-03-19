@@ -10,7 +10,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from QPyQt5Canvas import QPyQt5Canvas
 
-
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -23,12 +22,12 @@ class Ui_Form(object):
         sizePolicy.setHeightForWidth(self.canvas.sizePolicy().hasHeightForWidth())
         self.canvas.setSizePolicy(sizePolicy)
         self.canvas.setObjectName("canvas")
-        self.pushButton = QtWidgets.QPushButton(Form)
-        self.pushButton.setGeometry(QtCore.QRect(170, 540, 75, 23))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(Form)
-        self.pushButton_2.setGeometry(QtCore.QRect(430, 540, 75, 23))
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.Iniciar_Button = QtWidgets.QPushButton(Form)
+        self.Iniciar_Button.setGeometry(QtCore.QRect(170, 540, 75, 23))
+        self.Iniciar_Button.setObjectName("Iniciar_Button")
+        self.Salir_Button = QtWidgets.QPushButton(Form)
+        self.Salir_Button.setGeometry(QtCore.QRect(430, 540, 75, 23))
+        self.Salir_Button.setObjectName("Salir_Button")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -36,6 +35,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.pushButton.setText(_translate("Form", "Iniciar juego"))
-        self.pushButton_2.setText(_translate("Form", "Salir"))
+        self.Iniciar_Button.setText(_translate("Form", "Iniciar juego"))
+        self.Salir_Button.setText(_translate("Form", "Salir"))
 

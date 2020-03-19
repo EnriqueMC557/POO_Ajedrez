@@ -29,7 +29,7 @@
     </sizepolicy>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="Iniciar_Button">
    <property name="geometry">
     <rect>
      <x>170</x>
@@ -42,7 +42,7 @@
     <string>Iniciar juego</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="Salir_Button">
    <property name="geometry">
     <rect>
      <x>430</x>

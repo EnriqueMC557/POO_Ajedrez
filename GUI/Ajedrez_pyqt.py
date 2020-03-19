@@ -1,12 +1,8 @@
-"""
-GUI para Ajedrez
-IPOO
-MRAC & EMC
-"""
 
 import sys
 from Ajedrez_GUI import Ui_Form
 from PyQt5.QtWidgets import QApplication, QWidget
+from main import Menu
 
 class mpl_gui(QWidget):
     def __init__(self, parent=None):
@@ -14,20 +10,17 @@ class mpl_gui(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         #Conexiones
-        self.ui.pushButton.clicked.connect(self.grafica1)
-        self.ui.pushButton_2.clicked.connect(self.grafica2)
+        self.ui.Iniciar_Button.clicked.connect(self.Iniciar)
+        self.ui.Salir_Button.clicked.connect(self.Salir)
     
-    def grafica1(self):
-        x = [0, 1, 2, 3, 4, 5]
-        y = [5, 19, 25, 32, 40, 48]
-        self.ui.canvas.canvas.ax.plot(x,y,'ok')
-        self.ui.canvas.canvas.draw()
+    def Iniciar(self):
+        #juego = Menu(self.ui.canvas.canvas)
+        #juego.run()
+        Menu(self.ui.canvas.canvas).run()
     
-    def grafica2(self):
-        x = [0, 1, 2, 3, 4, 5]
-        y = [-5, -19, -25, -32, -40, -48]
-        self.ui.canvas.canvas.ax.plot(x,y,'*r')
-        self.ui.canvas.canvas.draw()
+    def Salir(self):
+        QApplication.quit()
+        self.close()
 
 
 if __name__ == '__main__':
