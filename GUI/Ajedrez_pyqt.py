@@ -25,28 +25,56 @@ class mpl_gui(QWidget):
         self.ui.Salir_Button.clicked.connect(self.Salir)
         self.ui.MoverPieza_Button.clicked.connect(self.GenerarMovimiento)
         self.ui.Movimientos_List.activated.connect(self.MoverPieza)
+        self.iniciar = True
     
     
     def Iniciar(self):
-        #Iniciar nombre de jugadores
-        text, ok = QInputDialog.getText(self, 'Jugador1', 'Ingrese nombre (blancas): ')
-        self.jugador1 = str(text)
-        text, ok = QInputDialog.getText(self, 'Jugador2', 'Ingrese nombre (negras): ')
-        self.jugador2 = str(text)
+        if self.iniciar:
+            #Iniciar nombre de jugadores
+            text, ok = QInputDialog.getText(self, 'Jugador1', 'Ingrese nombre (blancas): ')
+            self.jugador1 = str(text)
+            text, ok = QInputDialog.getText(self, 'Jugador2', 'Ingrese nombre (negras): ')
+            self.jugador2 = str(text)
+            
+            #Inicia equipo blanco
+            self.ActualTeam = 'wh'
+            
+            #Habilita ingreso de coordenada
+            self.ui.PosIn_LineEdit.setEnabled(True)
+            self.ui.label_2.setEnabled(True)
+            self.ui.MoverPieza_Button.setEnabled(True)
+            
+            #Pinta tablero inicial con piezas
+            self.juego = Menu(self.ui.canvas.canvas)
+            
+            #Actualiza mensaje a jugador en turno
+            self.ui.TextoMulti.setText('Es el turno de {} (blancas)'.format(self.jugador1))
+            
+            self.ui.Iniciar_Button.setText('Terminar juego')
+            self.iniciar = False
         
-        #Inicia equipo blanco
-        self.ActualTeam = 'wh'
-        
-        #Habilita ingreso de coordenada
-        self.ui.PosIn_LineEdit.setEnabled(True)
-        self.ui.label_2.setEnabled(True)
-        self.ui.MoverPieza_Button.setEnabled(True)
-        
-        #Pinta tablero inicial con piezas
-        self.juego = Menu(self.ui.canvas.canvas)
-        
-        #Actualiza mensaje a jugador en turno
-        self.ui.TextoMulti.setText('Es el turno de {} (blancas)'.format(self.jugador1))
+        else:
+            if self.ActualTeam == 'wh':
+                ganador = self.jugador1
+                perdedor = self.jugador2
+            else:
+                ganador = self.jugador2
+                perdedor = self.jugador1
+            
+            TerminarJuego = QMessageBox.question(self,
+                                                 'Terminar partida',
+                                                 """El jugador {0} desea declararse
+                                                 ganador. ¿{1} estás de acuerdo?
+                                                 """.format(ganador,perdedor),
+                                                 QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if TerminarJuego == QMessageBox.Yes:
+                self.ui.TextoMulti.setText('¡FELICIDADES! {} ha ganado la partida'.format(ganador))
+                
+                self.ui.PosIn_LineEdit.setEnabled(False)
+                self.ui.label_2.setEnabled(False)
+                self.ui.MoverPieza_Button.setEnabled(False)
+                self.ui.Iniciar_Button.setText('Iniciar juego')
+                self.iniciar = True
     
     def GenerarMovimiento(self):
         #Recibe texto en LineEdit
