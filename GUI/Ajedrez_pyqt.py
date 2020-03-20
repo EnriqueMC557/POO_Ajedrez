@@ -95,9 +95,9 @@ class mpl_gui(QWidget):
         #Envía coordenada y cambia equipo de ser necesario
         self.ActualTeam, self.pieza = self.juego.SolicitarCoordenada(C, self.ActualTeam, self.error, self.ui.Movimientos_List)
         
-        #Habilita lista de movimientos generados y deshabilita ingreso de pieza
+        #Habilita lista de movimientos generados
         self.ui.Movimientos_List.setEnabled(True)
-        self.ui.MoverPieza_Button.setEnabled(False)
+        self.ui.label_3.setEnabled(True)
         
     def MoverPieza(self):
         """Método responsabel de cambiar posición de pieza seleccionada y
@@ -114,9 +114,9 @@ class mpl_gui(QWidget):
         else:
             self.ui.TextoMulti.setText('Es el turno de {} (negras)'.format(self.jugador2))
         
-        #Habilita ingreso de coordenada y deshabilita selección de movimiento
+        #Deshabilita selección de movimiento
         self.ui.Movimientos_List.setEnabled(False)
-        self.ui.MoverPieza_Button.setEnabled(True)
+        self.ui.label_3.setEnabled(False)
     
     def Salir(self):
         """Método responsable de cerrar aplicación."""

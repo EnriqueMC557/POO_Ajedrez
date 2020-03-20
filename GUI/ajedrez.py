@@ -149,7 +149,21 @@ class Ajedrez:
         #Cambio de posición de pieza seleccionada
         pieza.posicion = PosFi
         
+        #Caso especial para peón llegando a extremo de tablero (coronación)
+        if type(pieza) == Peon:
+            if pieza.posicion[1] == 1 or pieza.posicion == 8:
+                self.coronacion(pieza)
+        
         #Mostar tablero y actualizar posiciones globales
         self.tablero.mostrar(self.piezas, self.figure)
         self.tablero.posiciones = Posiciones(self.piezas)
-    
+        
+    def coronacion(self,pieza):
+        Pos = pieza.posicion
+        Team = pieza.team
+        self.piezas.remove(pieza)
+        if Team == 'wh':
+            self.piezas.append(Reyna('wh', Pos))
+        else:
+            self.piezas.append(Reyna('bk', Pos))
+        
