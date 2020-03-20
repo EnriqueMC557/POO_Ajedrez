@@ -27,10 +27,11 @@ class Menu:
         print('Escriba salir si desea terminar.')
         self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ', 'bk')
     
-    def SolicitarCoordenada(self, C, team='', error=None):
+    def SolicitarCoordenada(self, C, team='', error=None, listaMovs = []):
         """Método que permite realizar la solicitud de una coordenada desde
         consola y maneja los posibles errores."""
         try:
+            pieza = None
             if len(C) != 2:
                 raise LenError('Longitud inválida')
             C = [C[0], C[1]]
@@ -47,7 +48,7 @@ class Menu:
                     raise ValueError('Número invalido')
                 C[1] = col[C[1].upper()] #KeyError
                 C[0],C[1] = C[1],C[0]
-            self.ajedrez.mover_pieza(C,team,self.figure)
+            pieza = self.ajedrez.generar_movimientos(C,team,listaMovs)
         except KeyError:
             error.setInformativeText('Letra fuera de rango o ingresaste dos números.')
             error.exec_()
@@ -72,7 +73,7 @@ class Menu:
             else:
                 team = 'wh'
         finally:
-            return team
+            return team, pieza
 
 if __name__ == '__main__':
     Menu().run()

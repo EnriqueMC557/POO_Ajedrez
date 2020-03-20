@@ -19,14 +19,13 @@ class mpl_gui(QWidget):
         self.error = QMessageBox()
         self.error.setIcon(QMessageBox.Critical)
         self.error.setText('Ha ocurrido un error')
-        #self.error.setStandardButtons(('Entendido',))
-        #self.error.setDefaultButton('Entendido')
         
         #Conexiones
         self.ui.Iniciar_Button.clicked.connect(self.Iniciar)
         self.ui.Salir_Button.clicked.connect(self.Salir)
-        self.ui.MoverPieza_Button.clicked.connect(self.MoverPieza)
-        
+        self.ui.MoverPieza_Button.clicked.connect(self.GenerarMovimiento)
+        self.ui.Movimientos_List.activated.connect(self.MoverPieza)
+    
     
     def Iniciar(self):
         #Iniciar nombre de jugadores
@@ -49,13 +48,19 @@ class mpl_gui(QWidget):
         #Actualiza mensaje a jugador en turno
         self.ui.TextoMulti.setText('Es el turno de {} (blancas)'.format(self.jugador1))
     
-    def MoverPieza(self):
+    def GenerarMovimiento(self):
         #Recibe texto en LineEdit
         C = self.ui.PosIn_LineEdit.text()
         
         #Envía coordenada y cambia equipo de ser necesario
-        self.ActualTeam = self.juego.SolicitarCoordenada(C, self.ActualTeam, self.error)
-            
+        self.ActualTeam, self.pieza = self.juego.SolicitarCoordenada(C, self.ActualTeam, self.error, self.ui.Movimientos_List)
+    
+    def MoverPieza(self):
+        idx = self.ui.Movimientos_List.currentIndex()
+        self.juego.ajedrez.mover_pieza(self.pieza, idx)
+        self.ui.Movimientos_List.clear()
+        self.ui.PosIn_LineEdit.clear()
+        
         #Actualiza mensaje a jugador en turno
         if self.ActualTeam == 'wh':
             self.ui.TextoMulti.setText('Es el turno de {} (blancas)'.format(self.jugador1))

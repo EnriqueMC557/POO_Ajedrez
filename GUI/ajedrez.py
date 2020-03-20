@@ -7,8 +7,7 @@ Aguilar C. M. R. & Mena C. E.
 import sys
 from piezas import Peon, Torre, Caballo, Alfil, Rey, Reyna
 from tablero import Tablero, Posiciones
-from errores import LenError, TeamError, SinMovimientos
-from errores import SeleccionVacia, SeleccionError
+from errores import TeamError, SinMovimientos, SeleccionVacia
 
 class Ajedrez:
     """Clase que permite jugar Ajedrez utilizando las clases Piezas y Tablero.
@@ -22,8 +21,9 @@ class Ajedrez:
     
     def __init__(self, figure):
         """Inicializador de clase Ajedrez."""
+        self.figure = figure
         self.piezas = self.generar_piezas()
-        self.tablero = Tablero(self.piezas, figure)
+        self.tablero = Tablero(self.piezas, self.figure)
     
     def generar_piezas(self):
         ListaPiezas = []
@@ -53,7 +53,8 @@ class Ajedrez:
         ListaPiezas.append(Reyna('bk', [4,1]))
         return ListaPiezas
         
-    def mover_pieza(self, PosIn, team, figure):
+    #def mover_pieza(self, PosIn, team, figure):
+    def generar_movimientos(self, PosIn, team, listaMovs):
         """Método responsable de cambiar la posición de la pieza seleccionada.
         
         Parameters
@@ -88,30 +89,24 @@ class Ajedrez:
                 if not movimientos:
                     raise SinMovimientos('Pieza sin movimientos')
                 
+                #Actualización de lista de movimientos
                 col = {1 : 'A', 2 : 'B', 3 : 'C', 4: 'D',
                        5 : 'E', 6 : 'F', 7 : 'G', 8 : 'H'}
-                while(True):
-                    try:
-                        print('\nPosibles movimientos de pieza seleccionada:')
-                        for k in movimientos:
-                            print('\t' + col[k[0]] + str(k[1]))
-                        PosFi = self.SolCoor('Ingrese coordenada destino: ')
-                        if PosFi not in movimientos:
-                            raise SeleccionError('')
-                    except LenError:
-                        print('\nLongitud de coordenada invalida.')
-                    except SeleccionError:
-                        print('\nSelección inválida.')
-                    except KeyError:
-                        print('\nLetra fuera de rango o ingresaste dos números.')
-                    except ValueError:
-                        print('\nNúmero fuera de rango o ingresaste dos letras.')
-                    else:
-                        i.posicion = PosFi
-                        break
+                listaMovs.clear()
+                for mov in movimientos:
+                    listaMovs.addItem(col[mov[0]] + str(mov[1]))
+                
+                self.movimientos = movimientos
+                
+                #Regreso de pieza seleccionada
+                return i
+                
         if NullSelection:
             raise SeleccionVacia('Posición sin pieza')
-        self.tablero.mostrar(self.piezas, figure)
+    
+    def mover_pieza(self, pieza, idx):
+        pieza.posicion = self.movimientos[idx]
+        self.tablero.mostrar(self.piezas, self.figure)
         self.tablero.posiciones = Posiciones(self.piezas)
     
     def SolCoor(self, mensaje):
