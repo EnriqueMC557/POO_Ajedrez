@@ -4,32 +4,54 @@ I.P.O.O
 Aguilar C. M. R. & Mena C. E.
 """
 
-import sys
 from errores import LenError, TeamError, SinMovimientos, SeleccionVacia
 from ajedrez import Ajedrez
 
 class Menu:
-    """Clase que permite jugar ajedrez desde la consola."""
+    """Clase que permite jugar ajedrez.
+    
+     Attributes
+     ----------
+     figure : QPyQt5Canvas
+        Figura para desplegar tablero y piezas.
+     ajedrez : Ajedrez
+         Juego completo de ajedrez (tablero y piezas)."""
+    
     def __init__(self, figure):
+        """ Inicializador de clase Menu
+        
+        Parameters
+        ----------
+        figure : QPyQt5Canvas
+            Figura para desplegar tablero y piezas."""
+        
         #Inicio de juego
         self.figure = figure
         self.ajedrez = Ajedrez(self.figure)
     
-    def run(self):
-        """Solicita movimientos de piezas."""
-        #while(True):
-        print("----------")
-        print('Es el turno de %s (blancas).'%self.jugadorW)
-        print('Escriba salir si desea terminar.')
-        self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A8: ', 'wh')
-        print("----------")
-        print('Es el turno de %s (negras).'%self.jugadorB)
-        print('Escriba salir si desea terminar.')
-        self.SolicitarCoordenada('Ingrese la coordenada de la pieza a mover, Ej. A1: ', 'bk')
-    
-    def SolicitarCoordenada(self, C, team='', error=None, listaMovs = []):
-        """Método que permite realizar la solicitud de una coordenada desde
-        consola y maneja los posibles errores."""
+    def SolicitarCoordenada(self, C, team, error, listaMovs):
+        """Método que permite recuperar coordenada de pieza seleccionada y
+        generar lista de movimientos posibles. Responsable del manejo de 
+        errores.
+        
+        Parameters
+        ----------
+        C : str
+            Coordenada actual de pieza a mover
+        team : str
+            Equipo que juega en turno actual.
+        error : QMessageBox
+            Mensaje para mostrar avisos de errores.
+        listaMovs : QComboBox
+            Visualizador de movimientos posibles en GUI.
+        
+        Returns
+        -------
+        team : str
+            Equipo de turno siguiente. Si ocurrió algún error se queda el
+            mismo equipo.
+        pieza : Piezas
+            Pieza asociada a coordenada solicitada."""
         try:
             pieza = None
             if len(C) != 2:
@@ -48,7 +70,9 @@ class Menu:
                     raise ValueError('Número invalido')
                 C[1] = col[C[1].upper()] #KeyError
                 C[0],C[1] = C[1],C[0]
+                
             pieza = self.ajedrez.generar_movimientos(C,team,listaMovs)
+            
         except KeyError:
             error.setInformativeText('Letra fuera de rango o ingresaste dos números.')
             error.exec_()
@@ -74,6 +98,4 @@ class Menu:
                 team = 'wh'
         finally:
             return team, pieza
-
-if __name__ == '__main__':
-    Menu().run()
+        

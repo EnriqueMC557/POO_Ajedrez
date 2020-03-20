@@ -15,7 +15,6 @@ class Piezas:
     posicion : list of int
         Posición actual de la pieza."""
         
-    
     def __init__(self, team, posicion):
         """Inicializador de la clase Piezas.
         
@@ -25,7 +24,7 @@ class Piezas:
             Equipo al que pertence la pieza ('wh' o 'bk').
         posicion : list of int
             Posición inicial de la pieza."""
-
+        
         self.team  = team
         self.posicion = posicion
     
@@ -75,7 +74,6 @@ class Peon(Piezas):
         #Validar dentro de tablero
         movimientos = self.DentroTablero(movimientos)
         return movimientos
-        
         
 class Torre(Piezas):
     """Clase que permite crear piezas tipo Torre."""
@@ -128,7 +126,6 @@ class Torre(Piezas):
                 else:
                     movimientos.append(mov)
             i += 1
-
         return movimientos
 
 class Caballo(Piezas):

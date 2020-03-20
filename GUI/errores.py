@@ -22,6 +22,5 @@ class LenError(Exception):
     pass
 
 class SeleccionError(Exception):
-    """Clase generadora de error para selección de coordenada destino inválida.
-    """
+    """Clase generadora de error para selección de coordenada destino inválida."""
     pass

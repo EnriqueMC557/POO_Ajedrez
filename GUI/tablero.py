@@ -4,8 +4,7 @@ I.P.O.O
 Aguilar C. M. R. & Mena C. E.
 """
 
-import numpy as np 
-import matplotlib.pyplot as plt
+import numpy as np
 
 class Posiciones():
     """Clase que permite conocer todas las posiciones que ocupan las piezas
@@ -52,7 +51,10 @@ class Tablero:
         Parameteres
         ----------
         piezas : list of Piezas
-            Piezas con las cuales se jugará ajedrez"""
+            Piezas con las cuales se jugará ajedrez.
+            
+        figure : QPyQt5Canvas
+            Figura para desplegar tablero y piezas."""
         self.fondo = np.array([[0.,1.,0.,1.,0.,1.,0.,1.],
                                [1.,0.,1.,0.,1.,0.,1.,0.],
                                [0.,1.,0.,1.,0.,1.,0.,1.],
@@ -71,7 +73,9 @@ class Tablero:
         Parameters
         ----------
         piezas : list of Piezas
-            Piezas a desplegar en tablero"""
+            Piezas a desplegar en tablero.
+        figure : QPyQt5Canvas
+            Figura para desplegar tablero y piezas."""
         #Despliegue de fondo y etiquetas de tablero
         figure.ax.clear()
         figure.ax.set_xticks(np.arange(8))
