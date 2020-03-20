@@ -74,8 +74,10 @@ class Ajedrez:
                 #Validación propio equipo
                 if team == 'wh':
                     posiciones = self.tablero.posiciones.wh
+                    posiciones_c =self.tablero.posiciones.bk
                 else:
                     posiciones = self.tablero.posiciones.bk
+                    posiciones_c = self.tablero.posiciones.wh
                 quitar = []
                 for mov in movimientos:
                     for pos in posiciones:
@@ -107,6 +109,11 @@ class Ajedrez:
                     except ValueError:
                         print('\nNúmero fuera de rango o ingresaste dos letras.')
                     else:
+                        if PosFi in posiciones_c:
+                            for pc in self.piezas:
+                                if pc.posicion == PosFi:
+                                    self.piezas.remove(pc)
+                                    break
                         i.posicion = PosFi
                         break
         if NullSelection:

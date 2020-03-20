@@ -75,8 +75,10 @@ class Ajedrez:
                 #Validación propio equipo
                 if team == 'wh':
                     posiciones = self.tablero.posiciones.wh
+                    self.posiciones_c =self.tablero.posiciones.bk
                 else:
                     posiciones = self.tablero.posiciones.bk
+                    self.posiciones_c = self.tablero.posiciones.wh
                 quitar = []
                 for mov in movimientos:
                     for pos in posiciones:
@@ -105,7 +107,16 @@ class Ajedrez:
             raise SeleccionVacia('Posición sin pieza')
     
     def mover_pieza(self, pieza, idx):
-        pieza.posicion = self.movimientos[idx]
+        
+        PosFi = self.movimientos[idx]
+        
+        if PosFi in self.posiciones_c:
+            for pc in self.piezas:
+                if pc.posicion == PosFi:
+                    self.piezas.remove(pc)
+                    break
+        
+        pieza.posicion = PosFi
         self.tablero.mostrar(self.piezas, self.figure)
         self.tablero.posiciones = Posiciones(self.piezas)
     
